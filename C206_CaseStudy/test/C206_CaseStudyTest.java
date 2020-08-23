@@ -38,6 +38,15 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is valid member arraylist to add to", member);
 	}
 	
+	public void retrieveAllMemberTest() {
+		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
+	}
+	
+	public void deleteMemberTest() {
+		
+	}
+	
+	
 	//Xuanting(Member Role 2: Course Category)
 	@Test
 	public void addCourseCategoryTest() {

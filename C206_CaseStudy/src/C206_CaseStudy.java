@@ -92,6 +92,8 @@ public class C206_CaseStudy {
 	}
 	
 	//=========================== Option 1 Members ===========================
+	
+	//add member
 	public static Member inputDetails() {
 		String name = Helper.readString("Enter course name > ");
 		String gender = Helper.readString("Enter gender > ");
@@ -108,6 +110,39 @@ public class C206_CaseStudy {
 	public static void addMember(ArrayList<Member> member, Member details) {
 		member.add(details);
 		System.out.println("Member Added!");
+	}
+	
+	//view member
+	public static String retrieveAllMember(ArrayList<Member> member) {
+		String output = "";
+		
+		for (int i = 0; i < member.size(); i++) {
+			output += String.format("%-20s %-10s %-20d %-50s %-50d %s\n", member.get(i).getName(), member.get(i).getGender(),
+					member.get(i).getMobile_number(), member.get(i).getEmail(), member.get(i).getDob(),
+					member.get(i).getResidence());
+		}
+		return output;
+	}
+	
+	public static void viewAllMember(ArrayList<Member> member) {
+		Helper.line(70, "=");
+		System.out.println("Member LIST");
+		Helper.line(70, "=");
+		
+		String output = String.format("%-20s %-10s %-20s %-50s %-50s %s\\n", "NAME", "GENDER", "MOBILE NUMBER", "EMAIL",
+				"DATE OF BIRTH", "RESIDENCE");
+		output += retrieveAllMember(member);
+		System.out.println(output);
+	}
+	
+	//delete member
+	public static void deleteMember(ArrayList<Member> member) {
+		String name = Helper.readString("Enter name of the account to be deleted > ");
+		for (int i=0; i<member.size(); i++) {
+			if (member.get(i).getName() == name) {
+				member.remove(i);
+			}
+		}
 	}
 	
 	
