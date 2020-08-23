@@ -53,7 +53,7 @@ public class Member {
 	public int getDob() {
 		return dob;
 	}
-
+	
 	public void setDob(int dob) {
 		this.dob = dob;
 	}

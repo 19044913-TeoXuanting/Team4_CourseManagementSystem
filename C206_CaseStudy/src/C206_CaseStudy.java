@@ -10,6 +10,9 @@ public class C206_CaseStudy {
 	private static final int QUIT = 6;
 
 	public static void main(String[] args) {
+		
+		ArrayList<Member> member = new ArrayList<Member>(); 
+		
 
 		//Xuanting (Member Role 2: Course Category)
 		ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
@@ -89,6 +92,24 @@ public class C206_CaseStudy {
 	}
 	
 	//=========================== Option 1 Members ===========================
+	public static Member inputDetails() {
+		String name = Helper.readString("Enter course name > ");
+		String gender = Helper.readString("Enter gender > ");
+		int mobile_number = Helper.readInt("Enter mobile number > ");
+		String email = Helper.readString("Enter email > ");
+		int dob = Helper.readInt("Enter date of birth > ");
+		String residence = Helper.readString("Enter country of residence");
+		
+		
+		Member details = new Member(name, gender, mobile_number, email, dob, residence );
+		return details;
+	}
+	
+	public static void addMember(ArrayList<Member> member, Member details) {
+		member.add(details);
+		System.out.println("Member Added!");
+	}
+	
 	
 	
 	//=========================== Option 2 Course Category ===========================
