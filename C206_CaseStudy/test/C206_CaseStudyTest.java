@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class C206_CaseStudyTest {
 	
+	ArrayList<Member> member = new ArrayList<Member>(); 
+	
 	//Xuanting(Member Role 2: Course Category)
 	private CourseCategory courseCat1;
 	private CourseCategory courseCat2;
@@ -30,6 +32,10 @@ public class C206_CaseStudyTest {
 	public void c206_test() {
 		//fail("Not yet implemented"); 
 		assertTrue("C206_CaseStudy_SampleTest ",true);
+	}
+	
+	public void addMemberTest() {
+		assertNotNull("Test if there is valid member arraylist to add to", member);
 	}
 	
 	//Xuanting(Member Role 2: Course Category)
