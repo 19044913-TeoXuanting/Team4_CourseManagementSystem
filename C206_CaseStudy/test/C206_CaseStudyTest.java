@@ -8,28 +8,27 @@ import java.util.ArrayList;
 
 public class C206_CaseStudyTest {
 	
+	//Wei Liang (Member Role 1: Member)
 	private ArrayList<Member> member = new ArrayList<Member>(); 
-	
 	private Member member1;
 	private Member member2;
 	
 	//Xuanting(Member Role 2: Course Category)
+	private ArrayList<CourseCategory> categoryList;
 	private CourseCategory courseCat1;
 	private CourseCategory courseCat2;
-	
-	//(Member Role 2: Course Category)
-	private ArrayList<CourseCategory> categoryList;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		//Prepare test data 
-		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01-01-2002, "Singapore");
-		member2 = new Member("jenny", "female", 01234567, "jenny@gmail.com", 01-01-2000, "Singapore");
+
+		//Wei Liang (Member Role 1: Member)
+		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01012000, "Singapore");
+		member2 = new Member("jenny", "female", 91234567, "jenny@gmail.com", 01012000, "Singapore");
 		
 		//Xuanting(Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
 		courseCat1 = new CourseCategory("Professional & Personal Development", "Enhancing Skills In Management, Finance, Strstegy & Marketing");
-		
 		categoryList = new ArrayList<CourseCategory>();
 	}
 
@@ -39,37 +38,42 @@ public class C206_CaseStudyTest {
 		assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
 	
+	//Wei Liang (Member Role 1: Member)
+	@Test
 	public void addMemberTest() {
 		
 		assertNotNull("Test if there is valid member arraylist to add to", member);
 		
 		C206_CaseStudy.addMember(member, member1);		
-		assertEquals("Test if that Camcorder arraylist size is 1?", 1, member.size());
+		assertEquals("Test if that member arraylist size is 1?", 1, member.size());
 		
 		assertSame("Test that account detail is added same as 1st item of the list?", member1, member.get(0));
 	}
 	
+	//Wei Liang (Member Role 1: Member)
+	@Test
 	public void retrieveAllMemberTest() {
 		
-		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
+		assertNotNull("Test if there is a valid member arraylist to retrieve", member);
 		
 		String allMember= C206_CaseStudy.retrieveAllMember(member);
 		String testOutput = "";
-		assertEquals("Check that ViewAllMember", testOutput, member);
+		testOutput += String.format("%-10s %-10s %-15s %-18s %-15s %s \n", "zane", "male", 12345678, "zane@gmail.com", "01-01-2002", "Singapore");
+		testOutput += String.format("%-10s %-10s %-15s %-18s %-15s %s \n", "jenny", "female", 91234567, "jenny@gmail.com", "01-01-2000", "Singapore");
+		assertEquals("Check the ViewAllMember", testOutput, allMember);
 	}
 	
+	//Wei Liang (Member Role 1: Member)
+	@Test
 	public void deleteMemberTest() {
-		
-		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
-		
+		assertNotNull("Test if there is a valid member arraylist to delete", member);
 	}
-	
 	
 	//Xuanting(Member Role 2: Course Category)
 	@Test
 	public void addCourseCategoryTest() {
-		//categoryList is not null, course category can be added - boundary
-		assertNotNull("Check if there is a valid CourseCategory arraylist to add to", "categoryList");
+		//categoryList is present, course category can be added - boundary
+		assertNull("Check if there is a valid CourseCategory arraylist to add to", "categoryList");
 		
 		//Given an empty categoryList, after adding 1 course category, the size of the categoryList is 1 - normal
 		//The category just added is as same as the first item of the list
@@ -87,8 +91,8 @@ public class C206_CaseStudyTest {
 	//Xuanting(Member Role 2: Course Category)
 	@Test
 	public void retrieveAllCategoryTest() {
-		//Test if categoryList is not null, but empty - boundary
-		assertNotNull("Test if there is a valid CourseCategory arratlist to retrieve category", categoryList);
+		//Test if categoryList is present, and not empty - boundary
+		assertNull("Test if there is a valid CourseCategory arraylist to retrieve category", categoryList);
 		
 		//Test if the list of category retrieved from the C206_CaseStudy is empty - boundary
 		String allCategory = C206_CaseStudy.retrieveAllCategory(categoryList);
@@ -120,11 +124,12 @@ public class C206_CaseStudyTest {
 		
 		//Error (Non-existing course category)
 		ok = C206_CaseStudy.doDeleteCategory(categoryList, "Hospitality");
-		assertFalse("Test that non-existing course category is NOT ok to delete?", ok);
-		
+		assertFalse("Test that non-existing course category is NOT ok to delete?", ok);	
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		
 	}
+	
 }
