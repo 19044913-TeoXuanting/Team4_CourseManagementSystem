@@ -11,10 +11,11 @@ public class C206_CaseStudy {
 
 	public static void main(String[] args) {
 		
+		//Wei Liang (Member Role 1: Member)
 		ArrayList<Member> member = new ArrayList<Member>(); 
 		
-		member.add(new Member("zane", "male", 12345678, "zane@gmail.com", "01-01-2002", "Singapore"));
-		member.add(new Member("jenny", "female", 91234567, "jenny@gmail.com", "01-01-2000", "Singapore"));
+		member.add(new Member("zane", "male", 12345678, "zane@gmail.com", 01012000, "Singapore"));
+		member.add(new Member("jenny", "female", 91234567, "jenny@gmail.com", 01012000, "Singapore"));
 		
 
 		//Xuanting (Member Role 2: Course Category)
@@ -84,6 +85,8 @@ public class C206_CaseStudy {
 		}
 
 	}
+	
+	//Wei Liang
 	private static void account() {
 		Helper.line(70, "=");
 		System.out.println("MEMBER'S ACCOUNT");
@@ -122,17 +125,15 @@ public class C206_CaseStudy {
 	}
 	
 	//=========================== Option 1 Members ===========================
-	
-	//add members
+	//Add Members
 	public static Member inputDetails() {
 		String name = Helper.readString("Enter name > ");
 		String gender = Helper.readString("Enter gender > ");
 		int mobile_number = Helper.readInt("Enter mobile number > ");
 		String email = Helper.readString("Enter email > ");
-		String dob = Helper.readString("Enter date of birth > ");
+		int dob = Helper.readInt("Enter date of birth > ");
 		String residence = Helper.readString("Enter country of residence > ");
-		
-		
+
 		Member details = new Member(name, gender, mobile_number, email, dob, residence);
 		return details;
 	}
@@ -142,7 +143,7 @@ public class C206_CaseStudy {
 		System.out.println("Member Added!");
 	}
 	
-	//view member
+	//View Member
 	public static String retrieveAllMember(ArrayList<Member> member) {
 		String output = "";
 		
@@ -165,7 +166,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	
-	//delete member
+	//Delete Member
 	public static void deleteMember(ArrayList<Member> member) {
 		String name = Helper.readString("Enter name of the account to be deleted > ");
 		int i=0;
@@ -178,9 +179,7 @@ public class C206_CaseStudy {
 			}
 		}
 	}
-	
-	
-	
+
 	//=========================== Option 2 Course Category ===========================
 	//Add Course Category
 	public static CourseCategory inputCategory() {
