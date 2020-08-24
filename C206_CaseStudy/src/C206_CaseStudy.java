@@ -123,7 +123,7 @@ public class C206_CaseStudy {
 	
 	//=========================== Option 1 Members ===========================
 	
-	//add member
+	//add members
 	public static Member inputDetails() {
 		String name = Helper.readString("Enter name > ");
 		String gender = Helper.readString("Enter gender > ");
