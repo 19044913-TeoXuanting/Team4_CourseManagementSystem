@@ -1,4 +1,6 @@
+
 import java.util.ArrayList;
+
 
 public class C206_CaseStudy {
 	
@@ -22,6 +24,12 @@ public class C206_CaseStudy {
 		
 		categoryList.add(new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In"));
 		categoryList.add(new CourseCategory("Professional & Personal Development", "Enhancing Skills In Management, Finance, Strstegy & Marketing"));
+		
+		//Ashley(Member Role 4: Course Schedule)
+		
+		ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
+		scheduleList.add(new CourseSchedule("24/08/2020", "27/08/2020", 500, 1, "Singapore"));
+		scheduleList.add(new CourseSchedule("25/08/2020", "30/08/2020", 300, 2, "Singapore"));
 		
 		int option = 0;
 		
@@ -72,6 +80,19 @@ public class C206_CaseStudy {
 			} else if (option == COURSES) {
 				
 			} else if (option == COURSE_SCHEDULE) {
+				scheduleMenu();
+				int schedType = Helper.readInt("Enter Your Choice > ");
+				
+				if(schedType == 1) {
+					CourseSchedule courseSched = inputSchedule();
+					C206_CaseStudy.addSchedule(scheduleList, courseSched);
+				}else if(schedType  == 2) {
+					C206_CaseStudy.viewAllSchedule(scheduleList);
+				}else if(schedType == 3) {
+					C206_CaseStudy.deleteSchedule(scheduleList);
+				}else {
+					System.out.println("Invalid Type");
+				}
 				
 			} else if (option == COURSE_REGISTRATION) {
 				
@@ -104,6 +125,16 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Course Category");
 		System.out.println("2. View Course Category");
 		System.out.println("3. Delete Course Catgeory");
+	}
+	
+	private static void scheduleMenu() {
+		Helper.line(70, "=");
+		System.out.println("COURSE SCHEDULES");
+		Helper.line(70, "=");
+		
+		System.out.println("1.Add Course Schedules");
+		System.out.println("2.View Course Schedules");
+		System.out.println("3.Delete Course Schedules");
 	}
 	
 	//Xuanting
@@ -241,6 +272,67 @@ public class C206_CaseStudy {
 	
 	
 	//=========================== Option 4 Course Schedule ===========================
+	
+	public static CourseSchedule inputSchedule() {
+		String Start = Helper.readString("Enter course start date > ");
+		String End =  Helper.readString("Enter course end date > ");
+		int Price = Helper.readInt("Enter course price > ");
+		int Id = Helper.readInt("Enter course ID >");
+		String Location = Helper.readString("Enter Location > ");
+		
+		CourseSchedule courseSched = new CourseSchedule(Start,End,Price,Id,Location);
+		return courseSched;
+	}
+	
+	public static void addSchedule(ArrayList<CourseSchedule> scheduleList, CourseSchedule courseSched) {
+		scheduleList.add(courseSched);
+		System.out.println("Schedule Added!");
+	}
+	
+	//View Course Schedule
+	public static String retrieveAllSchedule(ArrayList<CourseSchedule> scheduleList) {
+		String output = "";
+		
+		for (int i = 0; i < scheduleList.size(); i++) {
+			output += String.format("%-50s %-50s %-50s %-50s %-50s \n", scheduleList.get(i).getStart(), scheduleList.get(i).getEnd(), scheduleList.get(i).getPrice(), scheduleList.get(i).getId(),scheduleList.get(i).getLocation());
+		}
+		return output;
+	}
+	
+	public static void viewAllSchedule(ArrayList<CourseSchedule> scheduleList) {
+		Helper.line(70, "=");
+		System.out.println("COURSE SCHEDULE LIST");
+		Helper.line(70, "=");
+		
+		String output = String.format("%-50s %-50s %-50s %-50s %-50s \n", "COURSE START DATE", "COURSE END DATE","COURSE PRICE", "COURSE ID", "COURSE LOCATION" );
+		output += retrieveAllSchedule(scheduleList);
+		System.out.println(output);
+	}
+	
+	//Delete Course Schedule
+	public static boolean doDeleteSchedule(ArrayList<CourseSchedule> scheduleList, int Id) {
+		boolean isDeleted = false;
+		
+		for (int i = 0; i < scheduleList.size(); i++) {
+			if (scheduleList.get(i).getId() == Id) {
+				isDeleted = true;
+			}
+		}
+		return isDeleted;
+	}
+	
+	public static void deleteSchedule(ArrayList<CourseSchedule> scheduleList) {
+		C206_CaseStudy.viewAllSchedule(scheduleList);
+		int Id = Helper.readInt("Enter course ID > ");
+		Boolean isDeleted = doDeleteSchedule(scheduleList, Id);
+		
+		if (isDeleted == true) {
+			scheduleList.remove(Id);
+			System.out.println("Schedule " + Id + " deleted!");
+		} else {
+			System.out.println("Invalid Schedule ID");
+		}
+	}
 	
 	
 	//=========================== Option 5 Course Registration ===========================
