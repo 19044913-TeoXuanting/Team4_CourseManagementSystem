@@ -5,10 +5,10 @@ public class Member {
 	private String gender;
 	private int mobile_number;
 	private String email;
-	private int dob;
+	private String dob;
 	private String residence;
 
-	public Member(String name, String gender, int mobile_number, String email, int dob, 
+	public Member(String name, String gender, int mobile_number, String email, String dob, 
 			String residence) {
 		this.name = name;
 		this.gender = gender;
@@ -50,11 +50,11 @@ public class Member {
 		this.email = email;
 	}
 
-	public int getDob() {
+	public String getDob() {
 		return dob;
 	}
 	
-	public void setDob(int dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 

@@ -23,8 +23,8 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		//Prepare test data 
-		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01-01-2002, "Singapore");
-		member2 = new Member("jenny", "female", 01234567, "jenny@gmail.com", 01-01-2000, "Singapore");
+		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", "01-01-2002", "Singapore");
+		member2 = new Member("jenny", "female", 91234567, "jenny@gmail.com", "01-01-2000", "Singapore");
 		
 		//Xuanting(Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
@@ -39,28 +39,35 @@ public class C206_CaseStudyTest {
 		assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
 	
+	@Test
 	public void addMemberTest() {
 		
 		assertNotNull("Test if there is valid member arraylist to add to", member);
 		
 		C206_CaseStudy.addMember(member, member1);		
-		assertEquals("Test if that Camcorder arraylist size is 1?", 1, member.size());
+		assertEquals("Test if that member arraylist size is 1?", 1, member.size());
 		
 		assertSame("Test that account detail is added same as 1st item of the list?", member1, member.get(0));
 	}
 	
+	@Test
 	public void retrieveAllMemberTest() {
 		
-		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
+		assertNotNull("Test if there is a valid member arraylist to retrieve", member);
 		
 		String allMember= C206_CaseStudy.retrieveAllMember(member);
 		String testOutput = "";
-		assertEquals("Check that ViewAllMember", testOutput, member);
+		testOutput += String.format("%-10s %-10s %-15s %-18s %-15s %s \n", "zane", "male", 12345678, "zane@gmail.com", "01-01-2002", "Singapore");
+		testOutput += String.format("%-10s %-10s %-15s %-18s %-15s %s \n", "jenny", "female", 91234567, "jenny@gmail.com", "01-01-2000", "Singapore");
+		assertEquals("Check the ViewAllMember", testOutput, allMember);
 	}
 	
+	@Test 
 	public void deleteMemberTest() {
 		
-		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
+		assertNotNull("Test if there is a valid member arraylist to delete", member);
+		
+		
 		
 	}
 	
