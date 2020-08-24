@@ -23,8 +23,8 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		//Prepare test data 
-		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01-01-2000, "Singapore");
-		
+		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01-01-2002, "Singapore");
+		member2 = new Member("jenny", "female", 01234567, "jenny@gmail.com", 01-01-2000, "Singapore");
 		
 		//Xuanting(Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
@@ -40,6 +40,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	public void addMemberTest() {
+		
 		assertNotNull("Test if there is valid member arraylist to add to", member);
 		
 		C206_CaseStudy.addMember(member, member1);		
@@ -49,6 +50,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	public void retrieveAllMemberTest() {
+		
 		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
 		
 		String allMember= C206_CaseStudy.retrieveAllMember(member);
@@ -57,7 +59,9 @@ public class C206_CaseStudyTest {
 	}
 	
 	public void deleteMemberTest() {
+		
 		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
+		
 	}
 	
 	

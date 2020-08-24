@@ -13,6 +13,9 @@ public class C206_CaseStudy {
 		
 		ArrayList<Member> member = new ArrayList<Member>(); 
 		
+		member.add(new Member("zane", "male", 12345678, "zane@gmail.com", 01-01-2002, "Singapore"));
+		member.add(new Member("jenny", "female", 01234567, "jenny@gmail.com", 01-01-2000, "Singapore"));
+		
 
 		//Xuanting (Member Role 2: Course Category)
 		ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
