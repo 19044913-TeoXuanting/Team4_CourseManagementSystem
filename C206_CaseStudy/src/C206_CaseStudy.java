@@ -83,6 +83,43 @@ public class C206_CaseStudy {
 				}
 				
 			} else if (option == COURSES) {
+				CourseDB.showCourseMenu();
+
+   System.out.println("");
+
+   option = Helper.readInt("Enter an option > ");
+
+
+
+
+   if (option == 1) {
+
+    System.out.println(CourseDB.viewAllCourse());
+
+   } else if (option == 2) {
+
+    addCourse();
+
+   } else if (option == 3) {
+
+    delCourse();
+
+   } else if (option == 4) {
+
+    System.out.println("Goodbye!");
+
+   } else {
+
+    System.out.println("Invalid Option");
+
+   }
+
+
+
+
+   System.out.println("");
+
+  }
 				
 			} else if (option == COURSE_SCHEDULE) {
 				scheduleMenu();
