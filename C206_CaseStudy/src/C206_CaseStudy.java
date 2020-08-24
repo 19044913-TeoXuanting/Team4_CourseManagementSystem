@@ -26,13 +26,15 @@ public class C206_CaseStudy {
 		categoryList.add(new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In"));
 		categoryList.add(new CourseCategory("Professional & Personal Development", "Enhancing Skills In Management, Finance, Strstegy & Marketing"));
 		
-		//Ashley(Member Role 4: Course Schedule)
+		//Johnathan (Member Role 3: Course)
+		ArrayList<CourseMain> course = new ArrayList<CourseMain>();
 		
+		//Ashley(Member Role 4: Course Schedule)
 		ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
 		scheduleList.add(new CourseSchedule("24/08/2020", "27/08/2020", 500, 1, "Singapore"));
 		scheduleList.add(new CourseSchedule("25/08/2020", "30/08/2020", 300, 2, "Singapore"));
 		
-//		Miyuki(Member Role: 5: Course Registration)
+		//Miyuki(Member Role: 5: Course Registration)
 		ArrayList<register>registrationList = new ArrayList<register>();
 		ArrayList<course>courseList = new ArrayList<course>();
 		
@@ -83,43 +85,26 @@ public class C206_CaseStudy {
 				}
 				
 			} else if (option == COURSES) {
-				CourseDB.showCourseMenu();
+				showCourseMenu();
+				System.out.println("");
+				option = Helper.readInt("Enter an option > ");
+				
+				if (option == 1) {
+					System.out.println(CourseMain.viewAllCourse());
+					
+				} else if (option == 2) {
+					addCourse();
+				
+				} else if (option == 3) {
+					delCourse();
+					
+				} else if (option == 4) {
+					System.out.println("Goodbye!");
 
-   System.out.println("");
-
-   option = Helper.readInt("Enter an option > ");
-
-
-
-
-   if (option == 1) {
-
-    System.out.println(CourseDB.viewAllCourse());
-
-   } else if (option == 2) {
-
-    addCourse();
-
-   } else if (option == 3) {
-
-    delCourse();
-
-   } else if (option == 4) {
-
-    System.out.println("Goodbye!");
-
-   } else {
-
-    System.out.println("Invalid Option");
-
-   }
-
-
-
-
-   System.out.println("");
-
-  }
+				} else {
+					System.out.println("Invalid Option");
+				}
+				System.out.println("");
 				
 			} else if (option == COURSE_SCHEDULE) {
 				scheduleMenu();
@@ -159,7 +144,7 @@ public class C206_CaseStudy {
 		}
 
 	}
-	
+
 	//Wei Liang
 	private static void account() {
 		Helper.line(70, "=");
@@ -183,6 +168,18 @@ public class C206_CaseStudy {
 		System.out.println("3. Delete Course Catgeory");
 	}
 	
+	//Johnathan
+	private static void showCourseMenu() {
+		Helper.line(70, "=");
+		System.out.println("COURSES");
+		Helper.line(70, "=");
+		
+		System.out.println("1. View Courses");
+		System.out.println("2. Add Courses");
+		System.out.println("3. Delete Courses");
+	}
+	
+	//Ashley
 	private static void scheduleMenu() {
 		Helper.line(70, "=");
 		System.out.println("COURSE SCHEDULES");
@@ -326,40 +323,21 @@ public class C206_CaseStudy {
 	
 	//=========================== Option 3 Courses ===========================
 	public void addCourse() {
+		String courseCode = Helper.readString("Enter course code > ");
+		String courseTitle = Helper.readString("Enter course title > ");
+		String categoryName = Helper.readString("Enter category name > ");
+		String courseDescription = Helper.readString("Enter course description > ");
+		int courseDuration = Helper.readInt("Enter course duration > ");
+		String prerequisiteCourse = Helper.readString("Enter pre-requisite course > ");
+		
+		CourseMain newCourse = new CourseMain(courseCode, courseTitle, categoryName, courseDescription, courseDuration, prerequisiteCourse);
+		CourseMain.addCourse(newCourse);
+	}
 
-  
-
-  String courseCode = Helper.readString("Enter course code > ");
-
-  String courseTitle = Helper.readString("Enter course title > ");
-
-  String categoryName = Helper.readString("Enter category name > ");
-
-  String courseDescription = Helper.readString("Enter course description > ");
-
-  int courseDuration = Helper.readInt("Enter course duration > ");
-
-  String prerequisiteCourse = Helper.readString("Enter pre-requisite course > ");
-
-  
-
-  CourseMain newCourse = new CourseMain(courseCode, courseTitle, categoryName, courseDescription, courseDuration, prerequisiteCourse);
-
-  CourseDB.courseList.add(newCourse);
-
- }
-
-
-
-
- public void delCourse() {
-
-
-
-
-  String courseCode = Helper.readString("Enter course code > ");
-
-  CourseDB.delCourse(courseCode);
+	public void delCourse() {
+		String courseCode = Helper.readString("Enter course code > ");
+		CourseMain.delCourse(courseCode);
+	}
 	
 	
 	//=========================== Option 4 Course Schedule ===========================
