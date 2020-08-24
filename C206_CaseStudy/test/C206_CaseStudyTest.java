@@ -85,7 +85,7 @@ public class C206_CaseStudyTest {
 	//Xuanting(Member Role 2: Course Category)
 	@Test
 	public void addCourseCategoryTest() {
-		//categoryList is not null, course category can be added - boundary
+		//categoryList is present, course category can be added - boundary
 		assertNotNull("Check if there is a valid CourseCategory arraylist to add to", "categoryList");
 		
 		//Given an empty categoryList, after adding 1 course category, the size of the categoryList is 1 - normal
@@ -104,7 +104,7 @@ public class C206_CaseStudyTest {
 	//Xuanting(Member Role 2: Course Category)
 	@Test
 	public void retrieveAllCategoryTest() {
-		//Test if categoryList is null, and not empty - boundary
+		//Test if categoryList is present, and not empty - boundary
 		assertNull("Test if there is a valid CourseCategory arraylist to retrieve category", categoryList);
 		
 		//Test if the list of category retrieved from the C206_CaseStudy is empty - boundary
