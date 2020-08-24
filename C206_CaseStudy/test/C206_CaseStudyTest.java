@@ -8,7 +8,10 @@ import java.util.ArrayList;
 
 public class C206_CaseStudyTest {
 	
-	ArrayList<Member> member = new ArrayList<Member>(); 
+	private ArrayList<Member> member = new ArrayList<Member>(); 
+	
+	private Member member1;
+	private Member member2;
 	
 	//Xuanting(Member Role 2: Course Category)
 	private CourseCategory courseCat1;
@@ -20,6 +23,8 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		//Prepare test data 
+		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01-01-2000, "Singapore");
+		
 		
 		//Xuanting(Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
@@ -36,10 +41,19 @@ public class C206_CaseStudyTest {
 	
 	public void addMemberTest() {
 		assertNotNull("Test if there is valid member arraylist to add to", member);
+		
+		C206_CaseStudy.addMember(member, member1);		
+		assertEquals("Test if that Camcorder arraylist size is 1?", 1, member.size());
+		
+		assertSame("Test that account detail is added same as 1st item of the list?", member1, member.get(0));
 	}
 	
 	public void retrieveAllMemberTest() {
 		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
+		
+		String allMember= C206_CaseStudy.retrieveAllMember(member);
+		String testOutput = "";
+		assertEquals("Check that ViewAllMember", testOutput, member);
 	}
 	
 	public void deleteMemberTest() {
