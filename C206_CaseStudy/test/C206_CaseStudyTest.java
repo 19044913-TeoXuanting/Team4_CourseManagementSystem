@@ -43,7 +43,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	public void deleteMemberTest() {
-		
+		assertNotNull("Test if there is a valid member arraylist to retrieve category", member);
 	}
 	
 	

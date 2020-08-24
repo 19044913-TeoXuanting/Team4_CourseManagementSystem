@@ -27,7 +27,24 @@ public class C206_CaseStudy {
 			option = Helper.readInt("Enter option > ");
 			
 			if (option == MEMBERS) {
-
+				account();
+				int choice = Helper.readInt("Enter your choice > ");
+				
+				if (choice==1) {
+					Member details = inputDetails();
+					C206_CaseStudy.addMember(member, details);
+					
+				} else if (choice==2) {
+					C206_CaseStudy.viewAllMember(member);
+					
+				} else if (choice==3) {
+					C206_CaseStudy.deleteMember(member);
+					
+				} else {
+					System.out.println("Invalid choice");
+					
+				}
+				
 			} else if (option == COURSE_CATEGORY) {
 				categoryMenu();
 				int catType = Helper.readInt("Enter option > ");
@@ -64,6 +81,16 @@ public class C206_CaseStudy {
 		}
 
 	}
+	private static void account() {
+		Helper.line(70, "=");
+		System.out.println("MEMBER'S ACCOUNT");
+		Helper.line(70, "=");
+		
+		System.out.println("1. Add account");
+		System.out.println("2. View account");
+		System.out.println("3. Delete account");
+	}
+	
 
 	//Xuanting
 	private static void categoryMenu() {
