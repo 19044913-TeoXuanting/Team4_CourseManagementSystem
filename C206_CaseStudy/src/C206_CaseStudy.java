@@ -32,6 +32,10 @@ public class C206_CaseStudy {
 		scheduleList.add(new CourseSchedule("24/08/2020", "27/08/2020", 500, 1, "Singapore"));
 		scheduleList.add(new CourseSchedule("25/08/2020", "30/08/2020", 300, 2, "Singapore"));
 		
+//		Miyuki(Member Role: 5: Course Registration)
+		ArrayList<register>registrationList = new ArrayList<register>();
+		ArrayList<course>courseList = new ArrayList<course>();
+		
 		int option = 0;
 		
 		while (option != 6) {
@@ -96,7 +100,19 @@ public class C206_CaseStudy {
 				}
 				
 			} else if (option == COURSE_REGISTRATION) {
+				registration();
 				
+				int type = Helper.readInt("Enter option: ");
+				
+				if(type == 1) {
+					C206_CaseStudy.register(registrationList, courseList);
+					
+				}else if(type == 2){
+					C206_CaseStudy.viewAllRegistration(registrationList);
+				
+				}else if(type == 3) {
+					C206_CaseStudy.deleteRegistration(registrationList);
+				}
 			} else if (option == QUIT){
 				System.out.println("Bye!");
 			
@@ -339,6 +355,72 @@ public class C206_CaseStudy {
 	
 	
 	//=========================== Option 5 Course Registration ===========================
-
+	private static void registration() {
+		// TODO Auto-generated method stub
+		Helper.line(80, "-");
+		System.out.println("REGISTRATION");
+		Helper.line(80, "-");
+		
+		System.out.println("1. Register\n2. View Registration\n3. Delete Registration");
+	}
+	
+	private static void deleteRegistration(ArrayList<register> registrationList) {
+		// TODO Auto-generated method stub
+		C206_CaseStudy.viewAllRegistration(registrationList);
+		
+		int Rid = Helper.readInt("Enter registration ID to delete: ");
+		
+		for(register r: registrationList) {
+			if(r.getRegistrationNum() == Rid) {
+				registrationList.remove(r);
+				System.out.println("Sucessfully deleted!");
+			}else {
+				System.out.println("Resgistration ID does not exist\n Delete not succesfull");
+			}
+		}
+		
+		
+	}
+	private static void viewAllRegistration(ArrayList<register> registrationList) {
+		// TODO Auto-generated method stub
+		Helper.line(80, "-");
+		System.out.println("REGISTRATION LIST");
+		Helper.line(80, "-");
+		
+		String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", "REGISTRATION DATE AND TIME");
+		
+		for(int i = 0; i<registrationList.size();i++) {
+			 output += String.format("%-20d %-30s %-20d %-30s\n" , registrationList.get(i).getRegistrationNum(), registrationList.get(i).getEmail(), registrationList.get(i).getCourseID(),registrationList.get(i).getStatus(),registrationList.get(i).getDt());
+		}
+		System.out.println(output);
+		
+		
+	}
+	private static void register(ArrayList<register> registrationList, ArrayList<course>courseList) {
+		// TODO Auto-generated method stub
+//		C206_CaseStudy.viewAllCourse(courseList);
+		int courseID = Helper.readInt("Enter course id to register: ");
+		String email = Helper.readString("Enter email: ");
+		
+		if (!email.contains("@") || !email.contains(".com")) {
+			System.out.println("Please enter a valid email!");
+		}else {
+			for(course id: courseList) {
+				if(id.getCode() == courseID) {
+					registrationList.add(new register(registrationList.size()+1,courseID,email));
+					System.out.println("Successfully registered!");
+					
+				}else {
+					System.out.println("Registration failed!");
+				}
+			}
+		}
+		
+	
+	}
 	
 }
+
+
+	
+
