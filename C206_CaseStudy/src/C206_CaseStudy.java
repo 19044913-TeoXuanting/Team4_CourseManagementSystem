@@ -24,8 +24,7 @@ public class C206_CaseStudy {
 		
 		//Ashley(Member Role 4: Course Schedule)
 		ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
-		scheduleList.add(new CourseSchedule("24/08/2020", "27/08/2020", 500, 1, "Singapore"));
-		scheduleList.add(new CourseSchedule("25/08/2020", "30/08/2020", 300, 2, "Singapore"));
+		
 		
 		//Miyuki(Member Role: 5: Course Registration)
 		ArrayList<register>registrationList = new ArrayList<register>();
@@ -120,6 +119,12 @@ public class C206_CaseStudy {
 				} else if(schedType == 3) {
 					C206_CaseStudy.deleteSchedule(scheduleList);
 				
+				} else if (schedType == 4) {
+					C206_CaseStudy.updateSchedule(scheduleList);
+					
+				} else if (schedType == 5) {
+					C206_CaseStudy.searchSchedule(scheduleList);
+				
 				} else {
 					System.out.println("Invalid Type");
 				}
@@ -193,6 +198,8 @@ public class C206_CaseStudy {
 		System.out.println("1.Add Course Schedules");
 		System.out.println("2.View Course Schedules");
 		System.out.println("3.Delete Course Schedules");
+		System.out.println("4.Update Course Schedules");
+		System.out.println("5.Search Course Schedules");
 	}
 	
 	//Miyuki
@@ -513,7 +520,7 @@ public class C206_CaseStudy {
 		String output = "";
 		
 		for (int i = 0; i < scheduleList.size(); i++) {
-			output += String.format("%-50s %-50s %-50s %-50s %-50s\n", scheduleList.get(i).getStart(), scheduleList.get(i).getEnd(), 
+			output += String.format("%-20s %-20s %-20s %-15s %-15s\n", scheduleList.get(i).getStart(), scheduleList.get(i).getEnd(), 
 					scheduleList.get(i).getPrice(), scheduleList.get(i).getId(),scheduleList.get(i).getLocation());
 		}
 		return output;
@@ -524,7 +531,7 @@ public class C206_CaseStudy {
 		System.out.println("COURSE SCHEDULE LIST");
 		Helper.line(70, "=");
 		
-		String output = String.format("%-50s %-50s %-50s %-50s %-50s\n", "COURSE START DATE", "COURSE END DATE", "COURSE PRICE", 
+		String output = String.format("%-20s %-20s %-20s %-15s %-15s\n", "COURSE START DATE", "COURSE END DATE", "COURSE PRICE", 
 				"COURSE ID", "COURSE LOCATION");
 		output += retrieveAllSchedule(scheduleList);
 		System.out.println(output);
@@ -554,6 +561,62 @@ public class C206_CaseStudy {
 			System.out.println("Invalid Schedule ID");
 		}
 	}
+		//Update Course Schedule
+		public static boolean UpdateSchedule(ArrayList<CourseSchedule> scheduleList, int Id) {
+			boolean updated = false;
+			
+			for (int i=0; i<scheduleList.size(); i++) {
+				if (scheduleList.get(i).getId() == Id) {
+					String Start= Helper.readString("Enter new start date >  ");
+					String End = Helper.readString("Enter new end date > ");
+					String Location = Helper.readString("Enter new location > ");
+					int Price = Helper.readInt("Enter new price > ");
+					scheduleList.get(i).setStart(Start);
+					scheduleList.get(i).setEnd(End);
+					scheduleList.get(i).setLocation(Location);
+					scheduleList.get(i).setPrice(Price);
+					updated = true;
+					break;
+				}
+			}
+			return updated;
+		}
+		
+		public static void updateSchedule(ArrayList<CourseSchedule> scheduleList) {
+			viewAllSchedule(scheduleList);
+			int Id = Helper.readInt("Enter ID of the Course Schedule to be updated > ");
+			Boolean Isupdated = UpdateSchedule(scheduleList, Id);
+			if (Isupdated == false) {
+				System.out.println("There is no course schedule with this ID '" + Id + "'");
+			} else {
+				System.out.println("Update succesfully");
+			}
+		}
+		      
+		//Search Course Schedule
+		public static void searchSchedule(ArrayList<CourseSchedule> scheduleList) {
+			int Price = Helper.readInt("Enter price of the course > ");
+			Helper.line(90, "=");
+			System.out.println("Course Schedule LIST");
+			Helper.line(90, "=");
+			System.out.print(String.format("%-20s %-20s %-20s %-15s %-15s\n", "COURSE START DATE", "COURSE END DATE", "COURSE PRICE", "COURSE ID", "COURSE LOCATION"));
+			boolean search = false;
+			
+			for (int i=0; i<scheduleList.size(); i++) {
+				if (scheduleList.get(i).getPrice() == Price) {
+					String output = String.format("%-20s %-20s %-20s %-15s %-15s\n", scheduleList.get(i).getStart(), scheduleList.get(i).getEnd(), 
+							scheduleList.get(i).getPrice(), scheduleList.get(i).getId(),scheduleList.get(i).getLocation());
+					System.out.print(output);
+					search = true;
+				} 
+			}
+			if (search == false) {
+				System.out.println("");
+				System.out.println("There is no course with this price '" + Price + "'");
+			}
+		}
+		
+	
 	
 	
 //====================================================== Option 5 Course Registration ======================================================
