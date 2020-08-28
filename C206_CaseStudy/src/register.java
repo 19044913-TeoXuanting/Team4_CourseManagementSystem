@@ -2,12 +2,12 @@ import java.time.LocalDateTime;
 public class register {
 	
 		private int registrationNum;
-		private int courseID;
+		private String courseID;
 		private String email;
 		private String status;
 		private LocalDateTime dt;
 		
-		public register(int registrationNum, int courseID, String email) {
+		public register(int registrationNum, String courseID, String email) {
 			this.registrationNum = registrationNum;
 			this.courseID = courseID;
 			this.email = email;
@@ -24,11 +24,11 @@ public class register {
 			this.registrationNum = registrationNum;
 		}
 
-		public int getCourseID() {
+		public String getCourseID() {
 			return courseID;
 		}
 
-		public void setCourseID(int courseID) {
+		public void setCourseID(String courseID) {
 			this.courseID = courseID;
 		}
 
