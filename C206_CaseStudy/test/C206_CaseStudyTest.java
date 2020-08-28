@@ -23,8 +23,8 @@ public class C206_CaseStudyTest {
 		//Prepare test data 
 
 		//Wei Liang (Member Role 1: Member)
-		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01012000, "Singapore");
-		member2 = new Member("jenny", "female", 91234567, "jenny@gmail.com", 01012000, "Singapore");
+		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01012000, "Singapore", "123456");
+		member2 = new Member("jenny", "female", 91234567, "jenny@gmail.com", 01012000, "Singapore", "234567");
 		
 		//Xuanting(Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");

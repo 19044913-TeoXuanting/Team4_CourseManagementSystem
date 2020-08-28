@@ -15,9 +15,6 @@ public class C206_CaseStudy {
 		
 		//Wei Liang (Member Role 1: Member)
 		ArrayList<Member> member = new ArrayList<Member>(); 
-		
-		member.add(new Member("zane", "male", 12345678, "zane@gmail.com", 01012000, "Singapore"));
-		member.add(new Member("jenny", "female", 91234567, "jenny@gmail.com", 01012000, "Singapore"));	
 
 		//Xuanting (Member Role 2: Course Category)
 		ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
@@ -53,6 +50,12 @@ public class C206_CaseStudy {
 					
 				} else if (choice==3) {
 					C206_CaseStudy.deleteMember(member);
+					
+				} else if (choice==4) {
+					C206_CaseStudy.updateMember(member);
+					
+				} else if (choice==5) {
+					C206_CaseStudy.searchMember(member);
 					
 				} else {
 					System.out.println("Invalid choice");
@@ -146,20 +149,22 @@ public class C206_CaseStudy {
 
 	//Wei Liang
 	private static void account() {
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		System.out.println("MEMBER'S ACCOUNT");
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		
 		System.out.println("1. Add account");
 		System.out.println("2. View account");
 		System.out.println("3. Delete account");
+		System.out.println("4. Update account");
+		System.out.println("5. Search account");
 	}
 	
 	//Xuanting
 	private static void categoryMenu() {
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		System.out.println("COURSE CATEGORIES");
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		
 		System.out.println("1. Add Course Category");
 		System.out.println("2. Search Course Category");
@@ -170,9 +175,9 @@ public class C206_CaseStudy {
 	
 	//Johnathan
 	private static void showCourseMenu() {
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		System.out.println("COURSES");
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		
 		System.out.println("1. Add Courses");
 		System.out.println("2. View Courses");
@@ -181,9 +186,9 @@ public class C206_CaseStudy {
 	
 	//Ashley
 	private static void scheduleMenu() {
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		System.out.println("COURSE SCHEDULES");
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		
 		System.out.println("1.Add Course Schedules");
 		System.out.println("2.View Course Schedules");
@@ -199,9 +204,9 @@ public class C206_CaseStudy {
 	
 	//Xuanting
 	public static void menu() {
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		System.out.println("COURSE MANAGEMENT SYSTEM");
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		
 		System.out.println("1. Members");
 		System.out.println("2. Course Category");
@@ -209,7 +214,7 @@ public class C206_CaseStudy {
 		System.out.println("4. Course Schedule");
 		System.out.println("5. Course Registration");
 		System.out.println("6. Quit");
-		Helper.line(70, "-");
+		Helper.line(90, "-");
 	}
 	
 	
@@ -220,10 +225,11 @@ public class C206_CaseStudy {
 		String gender = Helper.readString("Enter gender > ");
 		int mobile_number = Helper.readInt("Enter mobile number > ");
 		String email = Helper.readString("Enter email > ");
-		int dob = Helper.readInt("Enter date of birth > ");
+		String dob = Helper.readString("Enter date of birth > ");
 		String residence = Helper.readString("Enter country of residence > ");
+		String password = Helper.readString("Enter password > ");
 
-		Member details = new Member(name, gender, mobile_number, email, dob, residence);
+		Member details = new Member(name, gender, mobile_number, email, dob, residence, password);
 		return details;
 	}
 	
@@ -237,7 +243,7 @@ public class C206_CaseStudy {
 		String output = "";
 		
 		for (int i = 0; i < member.size(); i++) {
-			output += String.format("%-10s %-10s %-15d %-18s %-15s %s \n", member.get(i).getName(), member.get(i).getGender(),
+			output += String.format("%-10s %-8s %-15d %-18s %-15s %s \n", member.get(i).getName(), member.get(i).getGender(),
 					member.get(i).getMobile_number(), member.get(i).getEmail(), member.get(i).getDob(),
 					member.get(i).getResidence());
 		}
@@ -245,11 +251,11 @@ public class C206_CaseStudy {
 	}
 	
 	public static void viewAllMember(ArrayList<Member> member) {
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		System.out.println("Member LIST");
-		Helper.line(70, "=");
+		Helper.line(90, "=");
 		
-		String output = String.format("%-10s %-10s %-15s %-18s %-15s %s \n", "NAME", "GENDER", "MOBILE NUMBER", "EMAIL",
+		String output = String.format("%-10s %-8s %-15s %-18s %-15s %s \n", "NAME", "GENDER", "MOBILE NUMBER", "EMAIL",
 				"DATE OF BIRTH", "RESIDENCE");
 		output += retrieveAllMember(member);
 		System.out.println(output);
@@ -258,17 +264,68 @@ public class C206_CaseStudy {
 	//Delete Member
 	public static void deleteMember(ArrayList<Member> member) {
 		String name = Helper.readString("Enter name of the account to be deleted > ");
-		int i=0;
-		while (i<member.size()) {
-			if (member.get(i).getName() == name) {
+		boolean deleted = false;
+		
+		for (int i=0; i<member.size(); i++) {
+			if (member.get(i).getName().equalsIgnoreCase(name)) {
 				member.remove(i);
 				System.out.println("Member deleted");
-			} else {
-				i++;
+				deleted = true;
+				break;
 			}
 		}
+		if (deleted == false) {
+			System.out.println("Deletion failed");
+		}
 	}
-
+	
+	//Update Member
+	public static void updateMember(ArrayList<Member> member) {
+		String name = Helper.readString("Enter name of the member's account to be updated > ");
+		boolean updated = false;
+		
+		for (int i=0; i<member.size(); i++) {
+			if (member.get(i).getName().equalsIgnoreCase(name)) {
+				String password = Helper.readString("Enter new password > ");
+				String residence = Helper.readString("Enter new residence > ");
+				int mobile = Helper.readInt("Enter new mobile number > ");
+				member.get(i).setPassword(password);
+				member.get(i).setResidence(residence);
+				member.get(i).setMobile_number(mobile);
+				System.out.println("Update successfully");
+				updated = true;
+				break;
+			} 
+		}
+		if (updated == false) {
+			System.out.println("There is no member's account with this name '" + name + "'");
+		}
+	}
+	      
+	//Search Member
+	public static void searchMember(ArrayList<Member> member) {
+		String residence = Helper.readString("Enter residence of the member > ");
+		Helper.line(90, "=");
+		System.out.println("Member LIST");
+		Helper.line(90, "=");
+		System.out.print(String.format("%-10s %-10s %-15s %-18s %-15s %s \n", "NAME", "GENDER", "MOBILE NUMBER", "EMAIL",
+				"DATE OF BIRTH", "RESIDENCE"));
+		boolean search = false;
+		
+		for (int i=0; i<member.size(); i++) {
+			if (member.get(i).getResidence().equalsIgnoreCase(residence)) {
+				String output = String.format("%-10s %-10s %-15d %-18s %-15s %s \n", member.get(i).getName(), member.get(i).getGender(),
+						member.get(i).getMobile_number(), member.get(i).getEmail(), member.get(i).getDob(),
+						member.get(i).getResidence());
+				System.out.print(output);
+				search = true;
+			} 
+		}
+		if (search == false) {
+			System.out.println("");
+			System.out.println("No member lives in this residence '" + residence + "'");
+		}
+	}
 	
 //====================================================== Option 2 Course Category ======================================================
 	//Add Course Category

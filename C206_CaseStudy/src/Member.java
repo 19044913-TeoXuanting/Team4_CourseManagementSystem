@@ -5,17 +5,19 @@ public class Member {
 	private String gender;
 	private int mobile_number;
 	private String email;
-	private int dob;
+	private String dob;
 	private String residence;
+	private String password;
 
-	public Member(String name, String gender, int mobile_number, String email, int dob, 
-			String residence) {
+	public Member(String name, String gender, int mobile_number, String email, String dob, 
+			String residence, String password) {
 		this.name = name;
 		this.gender = gender;
 		this.mobile_number = mobile_number;
 		this.email = email;
 		this.dob = dob;
 		this.residence = residence;
+		this.password = password;
 	}
 
 	public String getName() {
@@ -50,11 +52,11 @@ public class Member {
 		this.email = email;
 	}
 
-	public int getDob() {
+	public String getDob() {
 		return dob;
 	}
 	
-	public void setDob(int dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
@@ -64,6 +66,14 @@ public class Member {
 
 	public void setResidence(String residence) {
 		this.residence = residence;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
