@@ -262,26 +262,32 @@ public class C206_CaseStudy {
 	}
 	
 	//Delete Member
-	public static void deleteMember(ArrayList<Member> member) {
-		String name = Helper.readString("Enter name of the account to be deleted > ");
+	public static boolean DeleteMember(ArrayList<Member> member, String name) {
 		boolean deleted = false;
 		
 		for (int i=0; i<member.size(); i++) {
 			if (member.get(i).getName().equalsIgnoreCase(name)) {
 				member.remove(i);
-				System.out.println("Member deleted");
 				deleted = true;
 				break;
 			}
 		}
-		if (deleted == false) {
-			System.out.println("Deletion failed");
+		return deleted;
+	}
+	
+	public static void deleteMember(ArrayList<Member> member) {
+		viewAllMember(member);
+		String name = Helper.readString("Enter name of the account to be deleted > ");
+		Boolean Isdeleted = DeleteMember(member, name);
+		if (Isdeleted == false) {
+			System.out.println("No member's account of the name '" + name + "'");
+		} else {
+			System.out.println("Member deleted");
 		}
 	}
 	
 	//Update Member
-	public static void updateMember(ArrayList<Member> member) {
-		String name = Helper.readString("Enter name of the member's account to be updated > ");
+	public static boolean UpdateMember(ArrayList<Member> member, String name) {
 		boolean updated = false;
 		
 		for (int i=0; i<member.size(); i++) {
@@ -292,13 +298,21 @@ public class C206_CaseStudy {
 				member.get(i).setPassword(password);
 				member.get(i).setResidence(residence);
 				member.get(i).setMobile_number(mobile);
-				System.out.println("Update successfully");
 				updated = true;
 				break;
-			} 
+			}
 		}
-		if (updated == false) {
+		return updated;
+	}
+	
+	public static void updateMember(ArrayList<Member> member) {
+		viewAllMember(member);
+		String name = Helper.readString("Enter name of the member's account to be updated > ");
+		Boolean Isupdated = UpdateMember(member, name);
+		if (Isupdated == false) {
 			System.out.println("There is no member's account with this name '" + name + "'");
+		} else {
+			System.out.println("Update succesfully");
 		}
 	}
 	      

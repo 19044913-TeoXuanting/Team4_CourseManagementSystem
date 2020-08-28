@@ -23,8 +23,8 @@ public class C206_CaseStudyTest {
 		//Prepare test data 
 
 		//Wei Liang (Member Role 1: Member)
-		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", 01012000, "Singapore", "123456");
-		member2 = new Member("jenny", "female", 91234567, "jenny@gmail.com", 01012000, "Singapore", "234567");
+		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", "01012000", "Singapore", "123456");
+		member2 = new Member("jenny", "female", 91234567, "jenny@gmail.com", "01012000", "Singapore", "234567");
 		
 		//Xuanting(Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
@@ -67,7 +67,26 @@ public class C206_CaseStudyTest {
 	@Test
 	public void deleteMemberTest() {
 		assertNotNull("Test if there is a valid member arraylist to delete", member);
+		
+		boolean deleted = C206_CaseStudy.DeleteMember(member,"jenny");
+		assertTrue("Test if member is deleted", deleted);
 	}
+	
+	//Wei Liang (Member Role 1: Member)
+	@Test
+	public void UpdateMemberTest() {
+		assertNotNull("Test if there is a valid member arraylist to update", member);
+		
+		boolean update = C206_CaseStudy.UpdateMember(member,"zane");
+		assertFalse("Test if member is updated", update );
+	}
+	
+	//Wei Liang (Member Role 1: Member)
+		@Test
+		public void SearchMemberTest() {
+			assertNotNull("Test if there is a valid member arraylist to search", member);
+			
+		}
 	
 	//Xuanting(Member Role 2: Course Category)
 	@Test
