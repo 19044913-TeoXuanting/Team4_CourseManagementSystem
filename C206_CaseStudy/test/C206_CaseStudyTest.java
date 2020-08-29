@@ -218,7 +218,7 @@ public class C206_CaseStudyTest {
 			
 			//Check that schedule arraylist size is 1 after deleting element - normal
 			C206_CaseStudy.addSchedule(scheduleList, courseSched1);
-			assertEquals("Test that schedule arraylist size is 1", 1,C206_CaseStudy.sc);
+			assertEquals("Test that schedule arraylist size is 1", 1,C206_CaseStudy.scheduleList.size());
 		}
 		
 		//Ashley (Member Role 4: Course Schedule)
