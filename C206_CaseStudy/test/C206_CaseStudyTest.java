@@ -18,6 +18,11 @@ public class C206_CaseStudyTest {
 	private CourseCategory courseCat1;
 	private CourseCategory courseCat2;
 	
+	//Ashley(Member Role 4: Course Schedule)
+	private ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
+	private CourseSchedule courseSched1;
+	private CourseSchedule courseSched2;
+	
 	//Miyuki (Member Role 5: Course Registration)
 	private register Register1;
 	private register Register2;
@@ -34,6 +39,10 @@ public class C206_CaseStudyTest {
 		//Xuanting (Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
 		courseCat2 = new CourseCategory("Professional & Personal Development", "");
+		
+		//Ashley (Member Role 4: Course Schedule)
+		courseSched1 = new CourseSchedule("29/8/2020", "9/9/2020", 300, 1, "Woodlands");
+	    courseSched2 = new CourseSchedule("30/8/2020", "10/9/2020", 500, 2, "Sembawang");
 		
 		//Miyuki (Member Role 5: Course Registration)
 		Register1 = new register(123,"123s","m@g.com");
@@ -52,6 +61,8 @@ public class C206_CaseStudyTest {
 		member2 = null;
 		courseCat1 = null;
 		courseCat2 = null;
+		courseSched1 = null;
+		courseSched2 = null;
 	}
 
 
@@ -118,7 +129,7 @@ public class C206_CaseStudyTest {
 		
 		//Check if size of arraylist will be 2 after adding element in - boundary
 		C206_CaseStudy.addCategory(categoryList, courseCat2);
-		assertEquals("Test that categiry arraylist size is 2", 2, categoryList.size());
+		assertEquals("Test that category arraylist size is 2", 2, categoryList.size());
 
 	}
 	
@@ -168,6 +179,69 @@ public class C206_CaseStudyTest {
 		//Check if arraylist exist - boundary
 		assertNull("Test that there is a valid category arraylist to update", categoryList);
 	}
+	//Ashley (Member Role 4: Course Schedule)
+		@Test
+		public void addCourseScheduleTest() {
+			//Check if arraylist exist - normal
+			assertNull("Test that there is a valid schedule arraylist to add", scheduleList);
+			
+			//Check if size of arraylist will be 1 after adding an element in - normal
+			C206_CaseStudy.addSchedule(scheduleList, courseSched1);
+			assertEquals("Test that schedule arraylist size is 1", 1, scheduleList.size());
+			
+			//Check if size of arraylist will be 2 after adding element in - boundary
+			C206_CaseStudy.addSchedule(scheduleList, courseSched2);
+			assertEquals("Test that schedule arraylist size is 2", 2, scheduleList.size());
+
+		}
+		
+		//Ashley (Member Role 4: Course Schedule)
+		@Test
+		public void retrieveAllScheduleTest() {
+			//Check if arraylist exist, and is empty - boundary
+			assertNull("Test that there is a valid schedule arraylist to retrieve", scheduleList);
+			
+			//Check if expected testOutput string will display the list of categories retrieved from category arraylist - normal
+			String allSchedule = C206_CaseStudy.retrieveAllSchedule(scheduleList);
+			String testOutput = "";
+			
+			testOutput = String.format("%-20s %-20s %-20s %-15s %-15s", "29/8/2020", "9/9/2020", 300, 1, "Woodlands");
+			testOutput += String.format("%-20s %-20s %-20s %-15s %-15s", "30/8/2020", "10/9/2020", 500, 2, "Sembawang");
+			assertEquals("Test that viewAllSchedule", testOutput, allSchedule);
+		}
+		
+		//Ashley (Member Role 4: Course Schedule)
+		@Test
+		public void deleteScheduleTest() {
+			//Check if arraylist is empty before deleting - boundary
+			assertNull("Test that schedule arraylist is empty", scheduleList);
+			
+			//Check that schedule arraylist size is 1 after deleting element - normal
+			C206_CaseStudy.addSchedule(scheduleList, courseSched1);
+			assertEquals("Test that schedule arraylist size is 1", 1,C206_CaseStudy.sc);
+		}
+		
+		//Ashley (Member Role 4: Course Schedule)
+		@Test
+		public void searchScheduleTest() {
+			//Check if arraylist exist - boundary
+			assertNull("Test that there is a valid schedule arraylist to search from", scheduleList);
+			
+			//Check if expected testOutput string will display the list of categories retrieved from category arraylist - normal
+			String allSchedule = C206_CaseStudy.retrieveAllSchedule(scheduleList);
+			String testOutput = "";
+					
+			testOutput = String.format("%-20s %-20s %-20s %-15s %-15s", "29/8/2020", "9/9/2020", 300, 1, "Woodlands");
+			testOutput += String.format("%-20s %-20s %-20s %-15s %-15s", "30/8/2020", "10/9/2020", 500, 2, "Sembawang");
+			assertEquals("Test that viewAllSchedule", testOutput, allSchedule);
+		}
+		
+		//Ashley (Member Role 4: Course Schedule)
+		public void updateScheduleTest() {
+			//Check if arraylist exist - boundary
+			assertNull("Test that there is a valid schedule arraylist to update", scheduleList);
+		}
+
 
 	
 	//Miyuki (Member Role 5: Course Registration)

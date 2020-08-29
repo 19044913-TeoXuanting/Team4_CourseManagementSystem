@@ -22,13 +22,15 @@ public class C206_CaseStudy {
 	//Johnathan (Member Role 3: Course)
 	public static ArrayList<CourseMain> course = new ArrayList<CourseMain>();
 	
+	//Ashley(Member Role 4: Course Schedule)
+	public static ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
+	
 	//Miyuki(Member Role: 5: Course Registration)
 	public static ArrayList<register> registrationList = new ArrayList<register>();
 
 	
 	public static void main(String[] args) {
-		//Ashley(Member Role 4: Course Schedule)
-		ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
+		
 		
 		
 
