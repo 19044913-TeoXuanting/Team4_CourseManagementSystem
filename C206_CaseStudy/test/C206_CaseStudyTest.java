@@ -18,6 +18,11 @@ public class C206_CaseStudyTest {
 	private CourseCategory courseCat1;
 	private CourseCategory courseCat2;
 	
+	// Johnathan (Member Role 3 : Course)
+	private ArrayList<Course> course = new ArrayList<Course>();
+	private Course course1;
+	private Course course2;
+	
 	//Ashley(Member Role 4: Course Schedule)
 	private ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
 	private CourseSchedule courseSched1;
