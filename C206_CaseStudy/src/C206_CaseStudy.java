@@ -1,8 +1,8 @@
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 
 public class C206_CaseStudy {
 	
@@ -12,29 +12,27 @@ public class C206_CaseStudy {
 	private static final int COURSE_SCHEDULE = 4;
 	private static final int COURSE_REGISTRATION = 5;
 	private static final int QUIT = 6;
+
+	//Wei Liang (Member Role 1: Member)
+	public static ArrayList<Member> member = new ArrayList<Member>();
+	
+	//Xuanting (Member Role 2: Course Category)
+	public static ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
+	
+	//Johnathan (Member Role 3: Course)
+	public static ArrayList<CourseMain> course = new ArrayList<CourseMain>();
 	
 	//Miyuki(Member Role: 5: Course Registration)
-			public static ArrayList<register>registrationList = new ArrayList<register>();
+	public static ArrayList<register> registrationList = new ArrayList<register>();
 
-	//Johnathan (Member Role 3: Course)
-			public static ArrayList<CourseMain> course = new ArrayList<CourseMain>();
-
-
-
+	
 	public static void main(String[] args) {
-		
-		//Wei Liang (Member Role 1: Member)
-		ArrayList<Member> member = new ArrayList<Member>(); 
-
-		//Xuanting (Member Role 2: Course Category)
-		ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
-		
 		//Ashley(Member Role 4: Course Schedule)
 		ArrayList<CourseSchedule> scheduleList = new ArrayList<CourseSchedule>();
 		scheduleList.add(new CourseSchedule("24/08/2020", "27/08/2020", 500, 1, "Singapore"));
 		scheduleList.add(new CourseSchedule("25/08/2020", "30/08/2020", 300, 2, "Singapore"));
 		
-		
+
 		int option = 0;
 		
 		while (option != 6) {
@@ -71,23 +69,24 @@ public class C206_CaseStudy {
 				
 				if (catType == 1) {
 					//Add course category
- 					C206_CaseStudy.addCategory(categoryList);
+					CourseCategory category = addCategoryInfo();
+ 					C206_CaseStudy.addCategory(categoryList, category);
  					
 				} else if (catType == 2) {
+					//View course category
+					C206_CaseStudy.viewAllCategory(categoryList, course);
+					
+				} else if (catType == 3) {
+					//Delete course category
+					C206_CaseStudy.deleteCategory(categoryList);
+				
+				} else if (catType == 4) {
 					//Search course category
 					C206_CaseStudy.searchCategory(categoryList);
 					
-				} else if (catType == 3) {
+				} else if (catType == 5) {
 					//Update course category
 					C206_CaseStudy.updateCategory(categoryList);
-				
-				} else if (catType == 4) {
-					//View course category
-					C206_CaseStudy.viewAllCategory(categoryList);
-					
-				} else if (catType == 5) {
-					//Delete course category
-					C206_CaseStudy.deleteCategory(categoryList);
 
 				} else {
 					System.out.println("Invalid type");
@@ -140,7 +139,8 @@ public class C206_CaseStudy {
 				
 				} else if(type == 3) {
 					C206_CaseStudy.deleteRegistration(registrationList,scheduleList);
-				}else if (type == 4) {
+				
+				} else if (type == 4) {
 					C206_CaseStudy.UpdateStatus(registrationList);
 				}
 
@@ -173,10 +173,10 @@ public class C206_CaseStudy {
 		Helper.line(90, "=");
 		
 		System.out.println("1. Add Course Category");
-		System.out.println("2. Search Course Category");
-		System.out.println("3. Update Course Category");
-		System.out.println("4. View Course Category");
-		System.out.println("5. Delete Course Catgeory");
+		System.out.println("2. View Course Category");
+		System.out.println("3. Delete Course Category");
+		System.out.println("4. Search Course Category");
+		System.out.println("5. Update Course Category");
 	}
 	
 	//Johnathan
@@ -225,7 +225,7 @@ public class C206_CaseStudy {
 	}
 	
 	
-//====================================================== Option 1 Members ======================================================
+//================================================================= Option 1 Members =================================================================
 	//Add Members
 	public static Member inputDetails() {
 		String name = Helper.readString("Enter name > ");
@@ -348,15 +348,59 @@ public class C206_CaseStudy {
 		}
 	}
 	
-//====================================================== Option 2 Course Category ======================================================
+//================================================================= Option 2 Course Category ==========================================================
 	//Add Course Category
-	public static void addCategory(ArrayList<CourseCategory> categoryList) {
+	public static CourseCategory addCategoryInfo() {
 		String name = Helper.readString("Enter category name > ");
 		String description = Helper.readString("Enter category description > ");
 
 		CourseCategory category = new CourseCategory(name, description);
+		return category;
+	}
+	
+	public static void addCategory(ArrayList<CourseCategory> categoryList, CourseCategory category) {
 		categoryList.add(category);
 		System.out.println("Course Category Added!");
+	}
+		
+	//View Course Category
+	public static String retrieveAllCategory(ArrayList<CourseCategory> categoryList) {
+		String output = "";
+		
+		for (int i = 0; i < categoryList.size(); i++) {
+			output += String.format("%-50s %-50s\n", categoryList.get(i).getName(), categoryList.get(i).getDescription());
+		}
+		return output;
+	}
+	
+	public static void viewAllCategory(ArrayList<CourseCategory> categoryList, ArrayList<CourseMain> course) {
+		Helper.line(70, "=");
+		System.out.println("COURSES BY CATEGORY LIST");
+		Helper.line(70, "=");
+		
+		String output = String.format("%-50s %-50s\n", "CATEGORY NAME", "CATEGORY DESCRIPTION");
+		output += retrieveAllCategory(categoryList);
+		System.out.println(output);
+	}
+
+	//Delete Course Category
+	public static void deleteCategory(ArrayList<CourseCategory> categoryList) {
+		C206_CaseStudy.viewAllCategory(categoryList, course);
+		String name = Helper.readString("Enter category name to delete > ");
+		boolean isDeleted = false;
+		
+		for (int i = 0; i < categoryList.size(); i++) {
+			if (categoryList.get(i).getName().equalsIgnoreCase(name)) {
+				categoryList.remove(i);
+				
+				isDeleted = true;
+				System.out.println("Course Category deleted!");
+				break;
+			}
+		}
+		if (isDeleted == false) {
+			System.out.println("Failed to delete.");
+		}
 	}
 	
 	//Search Course Category
@@ -380,29 +424,9 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	//View Course Category
-	public static String retrieveAllCategory(ArrayList<CourseCategory> categoryList) {
-		String output = "";
-		
-		for (int i = 0; i < categoryList.size(); i++) {
-			output += String.format("%-50s %-50s\n", categoryList.get(i).getName(), categoryList.get(i).getDescription());
-		}
-		return output;
-	}
-	
-	public static void viewAllCategory(ArrayList<CourseCategory> categoryList) {
-		Helper.line(70, "=");
-		System.out.println("COURSE CATEGORY LIST");
-		Helper.line(70, "=");
-		
-		String output = String.format("%-50s %-50s\n", "CATEGORY NAME", "CATEGORY DESCRIPTION");
-		output += retrieveAllCategory(categoryList);
-		System.out.println(output);
-	}
-	
 	//Update Course Category
 	public static void updateCategory(ArrayList<CourseCategory> categoryList) {
-		C206_CaseStudy.viewAllCategory(categoryList);
+		C206_CaseStudy.viewAllCategory(categoryList, course);
 		String description = Helper.readString("Enter category description to update > ");
 		boolean isUpdated = false;
 		
@@ -420,29 +444,9 @@ public class C206_CaseStudy {
 			System.out.println("Invalid category description.");
 		}
 	}
-
-	//Delete Course Category
-	public static void deleteCategory(ArrayList<CourseCategory> categoryList) {
-		C206_CaseStudy.viewAllCategory(categoryList);
-		String name = Helper.readString("Enter category name to delete > ");
-		boolean isDeleted = false;
-		
-		for (int i = 0; i < categoryList.size(); i++) {
-			if (categoryList.get(i).getName().equalsIgnoreCase(name)) {
-				categoryList.remove(i);
-				
-				isDeleted = true;
-				System.out.println("Course Category deleted!");
-				break;
-			}
-		}
-		if (isDeleted == false) {
-			System.out.println("Failed to delete.");
-		}
-	}
 	
 
-//====================================================== Option 3 Courses ======================================================
+//================================================================= Option 3 Courses =================================================================
 	//Add Courses
 	public static void addCourse(ArrayList<CourseMain> course) {
 		String courseCode = Helper.readString("Enter course code > ");
@@ -497,7 +501,7 @@ public class C206_CaseStudy {
 	}
 	
 	
-//====================================================== Option 4 Course Schedule ======================================================
+//================================================================= Option 4 Course Schedule ==========================================================
 	//Add Course Schedule
 	public static CourseSchedule inputSchedule() {
 		String Start = Helper.readString("Enter course start date > ");
@@ -563,119 +567,131 @@ public class C206_CaseStudy {
 	}
 	
 	
-	//====================================================== Option 5 Course Registration ======================================================
-		//Delete Registration
-		public static String deleteRegistration(ArrayList<register> registrationList, ArrayList<CourseSchedule>scheduleList) {
-			LocalDate ld = LocalDate.now();
-			String output = "";
-			int Rid = Helper.readInt("Enter registration ID to delete: ");
-			
-			for (register r: registrationList) {
-				if (r.getRegistrationNum() == Rid) {
-					if(r.getStatus() == "Accepted") {
-						for (CourseSchedule cs: scheduleList) {
-							DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyy");
-							String start = cs.getStart();
-							LocalDate d = LocalDate.parse(start,f);
-							if(d.isAfter(ld)) {
-								registrationList.remove(r);
-								output = "Sucessfully deleted!";
-				} else {
-					output = "Resgistration ID does not exist\n Delete not succesfull";
-				}
+//========================================================= Option 5 Course Registration ==========================================================
+	//Delete Registration
+	public static String deleteRegistration(ArrayList<register> registrationList, ArrayList<CourseSchedule>scheduleList) {
+		LocalDate ld = LocalDate.now();
+		String output = "";
+		int Rid = Helper.readInt("Enter registration ID to delete: ");
+		
+		for (register r: registrationList) {
+			if (r.getRegistrationNum() == Rid) {
+				if(r.getStatus() == "Accepted") {
+					for (CourseSchedule cs: scheduleList) {
+						DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyy");
+						String start = cs.getStart();
+						LocalDate d = LocalDate.parse(start,f);
+						
+						if(d.isAfter(ld)) {
+							registrationList.remove(r);
+							output = "Sucessfully deleted!";
+								
+						} else {
+							output = "Resgistration ID does not exist\n Delete not succesfull";
 						}
 					}
 				}
 			}
-			return output;
 		}
-		//View Registration
-		public static void viewRegistration(ArrayList<register> registrationList, ArrayList<CourseSchedule>scheduleList, ArrayList<Member>member) {
-			System.out.println("1. View all registration\n2. Search registration by course scheuld id\n3.Search by member");
-			int view = Helper.readInt("Enter how you want to view: ");
+		return output;
+	}
+		
+	//View Registration
+	public static void viewRegistration(ArrayList<register> registrationList, ArrayList<CourseSchedule>scheduleList, ArrayList<Member>member) {
+		System.out.println("1. View all registration\n2. Search registration by course schedule id\n3.Search by member");
+		int view = Helper.readInt("Enter how you want to view: ");
 			
-			Helper.line(80, "-");
-			System.out.println("REGISTRATION LIST");
-			Helper.line(80, "-");
+		Helper.line(80, "-");
+		System.out.println("REGISTRATION LIST");
+		Helper.line(80, "-");
 			
-			if(view ==1) {
-				String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", "REGISTRATION DATE AND TIME");
-					
+		if(view ==1) {
+			String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", 
+					"REGISTRATION DATE AND TIME");
+				
 			for(int i = 0; i<registrationList.size();i++) {
-				 output += String.format("%-20d %-30s %-20d %-30s\n" , registrationList.get(i).getRegistrationNum(), registrationList.get(i).getEmail(), 
-						 registrationList.get(i).getCourseID(),registrationList.get(i).getStatus(),registrationList.get(i).getDt());
+				output += String.format("%-20d %-30s %-20d %-30s\n" , registrationList.get(i).getRegistrationNum(), 
+						registrationList.get(i).getEmail(), registrationList.get(i).getCourseID(),registrationList.get(i).getStatus(),
+						registrationList.get(i).getDt());
 			}
 			System.out.println(output);
 		
-		}else if (view == 2) {
+		} else if (view == 2) {
 			int schedule_id = Helper.readInt("Enter course schedule id: ");
 			
 			for(CourseSchedule id :scheduleList ) {
 				if(id.getId() == schedule_id) {
-					String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", "REGISTRATION DATE AND TIME");
+					String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", 
+						"REGISTRATION DATE AND TIME");
 					
 					for(int i = 0; i<registrationList.size();i++) {
-						 output += String.format("%-20d %-30s %-20d %-30s\n" , registrationList.get(i).getRegistrationNum(), registrationList.get(i).getEmail(), 
-								 registrationList.get(i).getCourseID(),registrationList.get(i).getStatus(),registrationList.get(i).getDt());
+						output += String.format("%-20d %-30s %-20d %-30s\n" , registrationList.get(i).getRegistrationNum(), 
+								registrationList.get(i).getEmail(), registrationList.get(i).getCourseID(),registrationList.get(i).getStatus(),
+								registrationList.get(i).getDt());
+					}
+					System.out.println(output);
 				}
 			}
-			}
-		}else if(view == 3) {
+			
+		} else if(view == 3) {
 			String name = Helper.readString("Enter member name: ");
 			
 			for(Member n: member) {
 				if(n.getName().contains(name)) {
-					String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", "REGISTRATION DATE AND TIME");
+					String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", 
+							"REGISTRATION DATE AND TIME");
 					
 					for(int i = 0; i<registrationList.size();i++) {
-						 output += String.format("%-20d %-30s %-20d %-30s\n" , registrationList.get(i).getRegistrationNum(), registrationList.get(i).getEmail(), 
-								 registrationList.get(i).getCourseID(),registrationList.get(i).getStatus(),registrationList.get(i).getDt());
+						output += String.format("%-20d %-30s %-20d %-30s\n" , registrationList.get(i).getRegistrationNum(), 
+								registrationList.get(i).getEmail(), registrationList.get(i).getCourseID(),registrationList.get(i).getStatus(),
+								registrationList.get(i).getDt());
 					}
+					System.out.println(output);
 				}
 			}
 		}
-		}
-		
-		//Add Registration
-		public static String register(ArrayList<register> registrationList, ArrayList<CourseMain>course) {
-			C206_CaseStudy.viewAllCourses(course);
-			String output = "";
-			String courseID = Helper.readString("Enter course code to register: ");
-			String email = Helper.readString("Enter email: ");
-			
-			if (!email.contains("@") || !email.contains(".com")) {
-				output = ("Please enter a valid email!");
-			
-			} else {
-				for(CourseMain id: course) {
-					if(id.getCourseCode().equalsIgnoreCase(courseID)) {
-						registrationList.add(new register(registrationList.size()+1,courseID,email));
-						output = ("Successfully registered!");
-						
-					} else {
-						output = ("Registration failed!");
-					}
-				}
-			}
-			return output;
-		}
-		private static void UpdateStatus(ArrayList<register> registrationList) {
-			// TODO Auto-generated method stub
-			C206_CaseStudy.viewRegistration(registrationList, null,null);
-			
-			int option = Helper.readInt("Enter regstration id  to update: ");
-			for (register r: registrationList) {
-				if(r.getRegistrationNum() == option) {
-					String update = Helper.readString("Enter status: ");
-					System.out.println("Status successfully updated");
-				}else {
-					System.out.println("Failed");
-				}
-			}
-			
-		}
-		
 	}
+		
+	//Add Registration
+	public static String register(ArrayList<register> registrationList, ArrayList<CourseMain>course) {
+		C206_CaseStudy.viewAllCourses(course);
+		String output = "";
+		String courseID = Helper.readString("Enter course code to register: ");
+		String email = Helper.readString("Enter email: ");
+		
+		if (!email.contains("@") || !email.contains(".com")) {
+			output = ("Please enter a valid email!");
+		
+		} else {
+			for(CourseMain id: course) {
+				if(id.getCourseCode().equalsIgnoreCase(courseID)) {
+					registrationList.add(new register(registrationList.size()+1,courseID,email));
+					output = "Successfully registered!";
+					
+				} else {
+					output = "Registration failed!";
+				}
+			}
+		}
+		return output;
+	}
+		
+	//Update Status of Registration
+	private static void UpdateStatus(ArrayList<register> registrationList) {
+		C206_CaseStudy.viewRegistration(registrationList, null,null);
+		int option = Helper.readInt("Enter registration id to update: ");
+
+		for (register r: registrationList) {
+			if(r.getRegistrationNum() == option) {
+				String update = Helper.readString("Enter status: ");
+				System.out.println("Status successfully updated");
+			} else {
+				System.out.println("Failed");
+			}
+		}	
+	}
+		
+}
 
 
 		
