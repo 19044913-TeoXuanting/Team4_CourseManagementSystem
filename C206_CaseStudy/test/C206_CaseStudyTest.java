@@ -13,11 +13,16 @@ public class C206_CaseStudyTest {
 	private Member member1;
 	private Member member2;
 	
-	//Xuanting(Member Role 2: Course Category)
-	private ArrayList<CourseCategory> categoryList;
+	//Xuanting (Member Role 2: Course Category)
+	private ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
 	private CourseCategory courseCat1;
 	private CourseCategory courseCat2;
+	
+	//Miyuki (Member Role 5: Course Registration)
+	private register Register1;
+	private register Register2;
 
+	
 	@Before
 	public void setUp() throws Exception {
 		//Prepare test data 
@@ -26,18 +31,30 @@ public class C206_CaseStudyTest {
 		member1 = new Member("zane", "male", 12345678, "zane@gmail.com", "01012000", "Singapore", "123456");
 		member2 = new Member("jenny", "female", 91234567, "jenny@gmail.com", "01012000", "Singapore", "234567");
 		
-		//Xuanting(Member Role 2: Course Category)
+		//Xuanting (Member Role 2: Course Category)
 		courseCat1 = new CourseCategory("Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
-		courseCat1 = new CourseCategory("Professional & Personal Development", "Enhancing Skills In Management, Finance, Strstegy & Marketing");
-		categoryList = new ArrayList<CourseCategory>();
-	}
-
-	@Test
-	public void c206_test() {
-		//fail("Not yet implemented"); 
-		assertTrue("C206_CaseStudy_SampleTest ",true);
+		courseCat2 = new CourseCategory("Professional & Personal Development", "");
+		
+		//Miyuki (Member Role 5: Course Registration)
+		Register1 = new register(123,"123s","m@g.com");
+		Register2 = new register(234,"234s","c@g.com");
+		C206_CaseStudy.addCourse(C206_CaseStudy.course);
+		C206_CaseStudy.addMember(member, details);	
 	}
 	
+	
+	@After
+	public void tearDown() throws Exception {
+		C206_CaseStudy.registrationList.clear();
+		Register1= null;
+		Register2 = null;
+		member1 = null;
+		member2 = null;
+		courseCat1 = null;
+		courseCat2 = null;
+	}
+
+
 	//Wei Liang (Member Role 1: Member)
 	@Test
 	public void addMemberTest() {
@@ -88,67 +105,102 @@ public class C206_CaseStudyTest {
 			
 		}
 	
-	//Xuanting(Member Role 2: Course Category)
+		
+	//Xuanting (Member Role 2: Course Category)
 	@Test
 	public void addCourseCategoryTest() {
-		//categoryList is present, course category can be added - boundary
-		assertNull("Check if there is a valid CourseCategory arraylist to add to", "categoryList");
+		//Check if arraylist exist - normal
+		assertNull("Test that there is a valid category arraylist to add", categoryList);
 		
-		//Given an empty categoryList, after adding 1 course category, the size of the categoryList is 1 - normal
-		//The category just added is as same as the first item of the list
+		//Check if size of arraylist will be 1 after adding an element in - normal
 		C206_CaseStudy.addCategory(categoryList, courseCat1);
-		assertEquals("Check that categoryList size is 1", 1, categoryList.size());
-		assertSame("Check that course category is added", courseCat1, categoryList.get(0));
-	
-		//Add another category. Test that the size of categoryList is 2? - normal
-		//The category just added is as same as the second item of the list
+		assertEquals("Test that category arraylist size is 1", 1, categoryList.size());
+		
+		//Check if size of arraylist will be 2 after adding element in - boundary
 		C206_CaseStudy.addCategory(categoryList, courseCat2);
-		assertEquals("Check that categoryList size is 2", 2, categoryList.size());
-		assertSame("Check that course category is added", courseCat2, categoryList.get(1));
+		assertEquals("Test that categiry arraylist size is 2", 2, categoryList.size());
+
 	}
 	
-	//Xuanting(Member Role 2: Course Category)
+	//Xuanting (Member Role 2: Course Category)
 	@Test
 	public void retrieveAllCategoryTest() {
-		//Test if categoryList is present, and not empty - boundary
-		assertNull("Test if there is a valid CourseCategory arraylist to retrieve category", categoryList);
+		//Check if arraylist exist, and is empty - boundary
+		assertNull("Test that there is a valid category arraylist to retrieve", categoryList);
 		
-		//Test if the list of category retrieved from the C206_CaseStudy is empty - boundary
+		//Check if expected testOutput string will display the list of categories retrieved from category arraylist - normal
 		String allCategory = C206_CaseStudy.retrieveAllCategory(categoryList);
 		String testOutput = "";
-		assertEquals("Check that ViewAllCategory", testOutput, allCategory);
 		
-		//Given an empty list, after adding 2 categories, test if the size of categoryList is 2 - normal
-		C206_CaseStudy.addCategory(categoryList, courseCat1);
-		C206_CaseStudy.addCategory(categoryList, courseCat2);
-		assertEquals("Test that categoryList size is 2", 2, categoryList.size());
-		
-		//Test if the expected output string is the same as the list of category retrieved from the C206_CaseStudy
-		allCategory = C206_CaseStudy.retrieveAllCategory(categoryList);
-		testOutput = String.format("%-50s %-50s\n", "Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
-		testOutput += String.format("%-50s %-50s\n", "Professional & Personal Development", "Enhancing Skills In Management, Finance, Strstegy & Marketing");
-		assertEquals("Test that ViewAllCategory", testOutput, allCategory);
+		testOutput = String.format("%-50s %-50s", "Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
+		testOutput += String.format("%-50s %-50s", "Professional & Personal Development", "");
+		assertEquals("Test that viewAllCategory", testOutput, allCategory);
 	}
 	
-	//Xuanting(Member Role 2: Course Category)
+	//Xuanting (Member Role 2: Course Category)
 	@Test
-	public void doDeleteCategoryTest() {
-		//Normal
-		Boolean ok = C206_CaseStudy.doDeleteCategory(categoryList, "Liberal Arts & Sciences");
-		assertTrue("Test that existing course category is ok to delete?", ok);
+	public void deleteCategoryTest() {
+		//Check if arraylist is empty before deleting - boundary
+		assertNull("Test that category arraylist is empty", categoryList);
 		
-		//Boundary
-		assertNotNull("Test if there is valid categoryList to delete from", categoryList);
+		//Check that category arraylist size is 1 after deleting element - normal
 		C206_CaseStudy.addCategory(categoryList, courseCat1);
+		assertEquals("Test that category arraylist size is 1", 1, C206_CaseStudy.categoryList.size());
+	}
+	
+	//Xuanting (Member Role 2: Course Category)
+	@Test
+	public void searchCategoryTest() {
+		//Check if arraylist exist - boundary
+		assertNull("Test that there is a valid category arraylist to search from", categoryList);
 		
-		//Error (Non-existing course category)
-		ok = C206_CaseStudy.doDeleteCategory(categoryList, "Hospitality");
-		assertFalse("Test that non-existing course category is NOT ok to delete?", ok);	
+		//Check if expected testOutput string will display the list of categories retrieved from category arraylist - normal
+		String allCategory = C206_CaseStudy.retrieveAllCategory(categoryList);
+		String testOutput = "";
+				
+		testOutput = String.format("%-50s %-50s", "Liberal Arts & Sciences", "Understanding The Complex World That We Live In");
+		testOutput += String.format("%-50s %-50s", "Professional & Personal Development", "");
+		assertEquals("Test that viewAllCategory", testOutput, allCategory);
+	}
+	
+	//Xuanting (Member Role 2: Course Category)
+	public void updateCategoryTest() {
+		//Check if arraylist exist - boundary
+		assertNull("Test that there is a valid category arraylist to update", categoryList);
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	
+	//Miyuki (Member Role 5: Course Registration)
+	@Test
+	public void registertest() {
+		//Test that the size of the arrayList is 0 before adding
+		assertEquals("Test that the size of Arraylist is 0 before adding", 0,C206_CaseStudy.registrationList.size());
 		
+		//Test that size of ArrayList is 1 after adding
+		C206_CaseStudy.register(C206_CaseStudy.registrationList, C206_CaseStudy.course);
+		assertEquals("Test that size of ArrayList is 1 after adding", 1, C206_CaseStudy.registrationList.size());
 	}
 	
+	@Test
+	public void deleteRegistertest() {
+		//Test that the size of the array is not null before deleting
+		
+		//Test that the size of the arrayList is 0 before adding
+		assertEquals("Test that the size of  Arraylist is 0 before adding", 0,C206_CaseStudy.registrationList.size());
+				
+		//Test that size of ArrayList is 1 after adding
+		C206_CaseStudy.register(C206_CaseStudy.registrationList, C206_CaseStudy.course);
+		assertEquals("Test that size of ArrayList is 1 after adding", 1, C206_CaseStudy.registrationList.size());
+				
+		//Test that the size of the arrayList is 0 after deleting
+		C206_CaseStudy.deleteRegistration(registrationList, scheduleList);
+	}
+
+	
+	@Test
+	public void c206_test() {
+		//fail("Not yet implemented"); 
+		assertTrue("C206_CaseStudy_SampleTest ",true);
+	}
+
 }
