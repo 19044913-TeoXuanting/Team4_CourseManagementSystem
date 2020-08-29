@@ -203,6 +203,10 @@ public class C206_CaseStudy {
 	
 	//Miyuki
 		private static void registration() {
+			Helper.line(90, "=");
+			System.out.println("COURSE REGISTRATION");
+			Helper.line(90, "=");
+			
 			System.out.println("1. Registration");
 			System.out.println("2. View Registration");
 			System.out.println("3. Delete Registration");
