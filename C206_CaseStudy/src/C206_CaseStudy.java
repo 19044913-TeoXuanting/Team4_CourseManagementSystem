@@ -72,7 +72,7 @@ public class C206_CaseStudy {
  					
 				} else if (catType == 2) {
 					//View course category
-					C206_CaseStudy.viewAllCategory(categoryList, course);
+					C206_CaseStudy.viewAllCategory(categoryList);
 					
 				} else if (catType == 3) {
 					//Delete course category
@@ -102,6 +102,12 @@ public class C206_CaseStudy {
 				
 				} else if (choice == 3) {
 					C206_CaseStudy.delCourse(course);
+					
+				} else if (choice == 4) {
+					C206_CaseStudy.updateCourse(course);
+					
+				} else if (choice == 5) {
+					C206_CaseStudy.searchCourse(course);
 
 				} else {
 					System.out.println("Invalid Option");
@@ -157,6 +163,7 @@ public class C206_CaseStudy {
 		}
 	}
 
+	
 	//Wei Liang
 	private static void account() {
 		Helper.line(90, "=");
@@ -192,6 +199,8 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Courses");
 		System.out.println("2. View Courses");
 		System.out.println("3. Delete Courses");
+		System.out.println("4. Update Courses");
+		System.out.println("5. Search Courses");
 	}
 	
 	//Ashley
@@ -383,10 +392,10 @@ public class C206_CaseStudy {
 		return output;
 	}
 	
-	public static void viewAllCategory(ArrayList<CourseCategory> categoryList, ArrayList<CourseMain> course) {
-		Helper.line(70, "=");
-		System.out.println("COURSES BY CATEGORY LIST");
-		Helper.line(70, "=");
+	public static void viewAllCategory(ArrayList<CourseCategory> categoryList) {
+		Helper.line(90, "=");
+		System.out.println("CATEGORY LIST");
+		Helper.line(90, "=");
 		
 		String output = String.format("%-50s %-50s\n", "CATEGORY NAME", "CATEGORY DESCRIPTION");
 		output += retrieveAllCategory(categoryList);
@@ -395,7 +404,7 @@ public class C206_CaseStudy {
 
 	//Delete Course Category
 	public static void deleteCategory(ArrayList<CourseCategory> categoryList) {
-		C206_CaseStudy.viewAllCategory(categoryList, course);
+		C206_CaseStudy.viewAllCategory(categoryList);
 		String name = Helper.readString("Enter category name to delete > ");
 		boolean isDeleted = false;
 		
@@ -436,7 +445,7 @@ public class C206_CaseStudy {
 	
 	//Update Course Category
 	public static void updateCategory(ArrayList<CourseCategory> categoryList) {
-		C206_CaseStudy.viewAllCategory(categoryList, course);
+		C206_CaseStudy.viewAllCategory(categoryList);
 		String description = Helper.readString("Enter category description to update > ");
 		boolean isUpdated = false;
 		
@@ -476,25 +485,25 @@ public class C206_CaseStudy {
 		String output = "";
 		
 		for (int i = 0; i < course.size(); i++) {
-			output += String.format("%-15s %-20s %-20s %-30s %-20d %-30s\n",course.get(i).getCourseCode(), course.get(i).getCourseTitle(),
+			output += String.format("%-15s %-20s %-20s %-30s %-25d %-30s\n", course.get(i).getCourseCode(), course.get(i).getCourseTitle(),
 					course.get(i).getCategoryName(), course.get(i).getCategoryDescription(), course.get(i).getCourseDuration(), 
-					course.get(i).getPrerequisiteCourse());	
+					course.get(i).getPrerequisiteCourse());
 		}
-		return output;	
+		return output;
 	}
 	
 	public static void viewAllCourses(ArrayList<CourseMain> course) {
-		Helper.line(70, "=");
+		Helper.line(80, "-");
 		System.out.println("LIST OF COURSES");
-		Helper.line(70, "=");
+		Helper.line(80, "-");
 		
-		String output = String.format("%-15s %-20s %-20s %-30s %-20d %-30s\n", "COURSE CODE", "COURSE TITLE", "CATEGORY NAME", "CATEGORY DESCRIPTION",
+		String output = String.format("%-15s %-20s %-20s %-30s %-25s %-30s\n", "COURSE CODE", "COURSE TITLE", "CATEGORY NAME", "CATGEORY DESCRIPTION",
 				"COURSE DURATION", "PRE-REQUISITE COURSE");
 		output += retrieveAllCourses(course);
 		System.out.println(output);
 	}
 
-	//Delete courses
+	//Delete Courses
 	public static void delCourse(ArrayList<CourseMain> course) {
 		C206_CaseStudy.viewAllCourses(course);
 		String courseCode = Helper.readString("Enter course code > ");
@@ -507,6 +516,131 @@ public class C206_CaseStudy {
 			} else {
 				System.out.println("Failed to delete");
 			}
+		}
+	}
+	
+	//Update Courses
+	public static void updateCourse(ArrayList<CourseMain> course) {
+		Helper.line(80, "-");
+		System.out.println("UPDATE COURSE DETAILS");
+		Helper.line(80, "-");
+		
+		System.out.println("1. Update Course Title\n2. Update Category Name\n3. Update Category Description\n4. Update Course Duration\n"
+				+ "5. Update Pre-requisite Course");
+		int cOption = Helper.readInt("Enter your option > ");
+
+		if (cOption == 1) {
+			C206_CaseStudy.viewAllCourses(course);
+			String cTitle = Helper.readString("Enter course title to update > ");
+			boolean isUpdated = false;
+			
+			for (int i = 0; i < course.size(); i++) {
+				if (course.get(i).getCourseTitle().equalsIgnoreCase(cTitle)) {
+					String newCTitle = Helper.readString("Enter new course title > ");
+					course.get(i).setCourseTitle(newCTitle);
+					
+					isUpdated = true;
+					System.out.println("Course title updated!");
+				}
+			}
+			if (isUpdated == false) {
+				System.out.println("Failed to update course title");
+			}
+		
+		} else if (cOption == 2) {
+			C206_CaseStudy.viewAllCourses(course);
+			String cName = Helper.readString("Enter category name to update > ");
+			boolean isUpdated = false;
+			
+			for (int i = 0; i < course.size(); i++) {
+				if (course.get(i).getCategoryName().equalsIgnoreCase(cName)) {
+					String newCName = Helper.readString("Enter new category name > ");
+					course.get(i).setCategoryName(newCName);
+					
+					isUpdated = true;
+					System.out.println("Category name updated!");
+				}
+			}
+			if (isUpdated == false) {
+				System.out.println("Failed to update category name");
+			}
+		
+		} else if (cOption == 3) {
+			C206_CaseStudy.viewAllCourses(course);
+			String cDescription = Helper.readString("Enter category description to update > ");
+			boolean isUpdated = false;
+			
+			for (int i = 0; i < course.size(); i++) {
+				if (course.get(i).getCategoryDescription().equalsIgnoreCase(cDescription)) {
+					String newCDescription = Helper.readString("Enter new category description > ");
+					course.get(i).setCategoryDescription(newCDescription);
+					
+					isUpdated = true;
+					System.out.println("Category description updated!");
+				}
+			}
+			if (isUpdated == false) {
+				System.out.println("Failed to update category description");
+			}
+		
+		} else if (cOption == 4) {
+			C206_CaseStudy.viewAllCourses(course);
+			int cDuration = Helper.readInt("Enter course duration to update > ");
+			boolean isUpdated = false;
+			
+			for (int i = 0; i < course.size(); i++) {
+				if (course.get(i).getCourseDuration() == cDuration) {
+					int newCDuration = Helper.readInt("Enter new course duration > ");
+					course.get(i).setCourseDuration(newCDuration);
+					
+					isUpdated = true;
+					System.out.println("Course duration updated!");
+				}
+			}
+			if (isUpdated == false) {
+				System.out.println("Failed to update course duration");
+			}
+			
+		} else if (cOption == 5) {
+			C206_CaseStudy.viewAllCourses(course);
+			String prerequisiteCourse = Helper.readString("Enter pre-requisite course to update > ");
+			boolean isUpdated = false;
+			
+			for (int i = 0; i < course.size(); i++) {
+				if (course.get(i).getPrerequisiteCourse().equalsIgnoreCase(prerequisiteCourse)) {
+					String newPrerequisiteCourse = Helper.readString("Enter new pre-requisite course > ");
+					course.get(i).setPrerequisiteCourse(newPrerequisiteCourse);
+					
+					isUpdated = true;
+					System.out.println("Pre-requisite course updated!");
+				}
+			}
+			if (isUpdated == false) {
+				System.out.println("Failed to update pre-requisite course");
+			}
+		}
+	}
+	
+	//Search Courses
+	public static void searchCourse(ArrayList<CourseMain> course) {
+		String cName = Helper.readString("Enter category name > ");
+		String output = "";
+		boolean isFound = false;
+		
+		for (int i = 0; i < course.size(); i++) {
+			if (course.get(i).getCategoryName().equalsIgnoreCase(cName)) {
+				output = String.format("%-15s %-20s %-20s %-30s %-25s %-30s\n", "COURSE CODE", "COURSE TITLE", "CATEGORY NAME", 
+						"CATEGORY DESCRIPTION", "COURSE DURATION(DAYS)", "PRE-REQUISITE COURSE");
+				output += String.format("%-15s %-20s %-20s %-30s %-25d %-30s\n",course.get(i).getCourseCode(), 
+						course.get(i).getCourseTitle(), course.get(i).getCategoryName(), course.get(i).getCategoryDescription(), 
+						course.get(i).getCourseDuration(), course.get(i).getPrerequisiteCourse());
+				
+				isFound = true;
+				System.out.println(output);
+			}
+		}
+		if (isFound == false) {
+			System.out.println("There is no such category name");
 		}
 	}
 	
@@ -666,13 +800,13 @@ public class C206_CaseStudy {
 		
 	//View Registration
 	public static void viewRegistration(ArrayList<register> registrationList, ArrayList<CourseSchedule>scheduleList, ArrayList<Member>member) {
-		System.out.println("1. View all registration\n2. Search registration by course schedule id\n3.Search by member");
-		int view = Helper.readInt("Enter how you want to view: ");
-			
 		Helper.line(80, "-");
 		System.out.println("REGISTRATION LIST");
 		Helper.line(80, "-");
-			
+		
+		System.out.println("1. View all registration\n2. Search registration by course schedule id\n3.Search by member");
+		int view = Helper.readInt("Enter how you want to view: ");
+	
 		if(view ==1) {
 			String output = String.format("%-20s %-30s %-20s %-30s", "Registration ID", "STUDENT EMAIL", "COURSE ID","STATUS", 
 					"REGISTRATION DATE AND TIME");
