@@ -30,9 +30,6 @@ public class C206_CaseStudy {
 
 	
 	public static void main(String[] args) {
-		
-		
-		
 
 		int option = 0;
 		
@@ -211,16 +208,16 @@ public class C206_CaseStudy {
 	}
 	
 	//Miyuki
-		private static void registration() {
-			Helper.line(90, "=");
-			System.out.println("COURSE REGISTRATION");
-			Helper.line(90, "=");
-			
-			System.out.println("1. Registration");
-			System.out.println("2. View Registration");
-			System.out.println("3. Delete Registration");
-			System.out.println("4. Update Registration status");
-		}
+	private static void registration() {
+		Helper.line(90, "=");
+		System.out.println("COURSE REGISTRATION");
+		Helper.line(90, "=");
+		
+		System.out.println("1. Registration");
+		System.out.println("2. View Registration");
+		System.out.println("3. Delete Registration");
+		System.out.println("4. Update Registration status");
+	}
 	
 	//Xuanting
 	public static void menu() {
@@ -578,64 +575,66 @@ public class C206_CaseStudy {
 			System.out.println("Invalid Schedule ID");
 		}
 	}
-		//Update Course Schedule
-		public static boolean UpdateSchedule(ArrayList<CourseSchedule> scheduleList, int Id) {
-			boolean updated = false;
+	
+	//Update Course Schedule
+	public static boolean UpdateSchedule(ArrayList<CourseSchedule> scheduleList, int Id) {
+		boolean updated = false;
 			
-			for (int i=0; i<scheduleList.size(); i++) {
-				if (scheduleList.get(i).getId() == Id) {
-					String Start= Helper.readString("Enter new start date >  ");
-					String End = Helper.readString("Enter new end date > ");
-					String Location = Helper.readString("Enter new location > ");
-					int Price = Helper.readInt("Enter new price > ");
-					scheduleList.get(i).setStart(Start);
-					scheduleList.get(i).setEnd(End);
-					scheduleList.get(i).setLocation(Location);
-					scheduleList.get(i).setPrice(Price);
-					updated = true;
-					break;
-				}
+		for (int i=0; i<scheduleList.size(); i++) {
+			if (scheduleList.get(i).getId() == Id) {
+				String Start= Helper.readString("Enter new start date >  ");
+				String End = Helper.readString("Enter new end date > ");
+				String Location = Helper.readString("Enter new location > ");
+				int Price = Helper.readInt("Enter new price > ");
+				scheduleList.get(i).setStart(Start);
+				scheduleList.get(i).setEnd(End);
+				scheduleList.get(i).setLocation(Location);
+				scheduleList.get(i).setPrice(Price);
+				updated = true;
+				break;
 			}
-			return updated;
 		}
+		return updated;
+	}
 		
-		public static void updateSchedule(ArrayList<CourseSchedule> scheduleList) {
-			viewAllSchedule(scheduleList);
-			int Id = Helper.readInt("Enter ID of the Course Schedule to be updated > ");
-			Boolean Isupdated = UpdateSchedule(scheduleList, Id);
-			if (Isupdated == false) {
-				System.out.println("There is no course schedule with this ID '" + Id + "'");
-			} else {
-				System.out.println("Update succesfully");
-			}
+	public static void updateSchedule(ArrayList<CourseSchedule> scheduleList) {
+		viewAllSchedule(scheduleList);
+		int Id = Helper.readInt("Enter ID of the Course Schedule to be updated > ");
+		boolean Isupdated = UpdateSchedule(scheduleList, Id);
+		
+		if (Isupdated == false) {
+			System.out.println("There is no course schedule with this ID '" + Id + "'");
+		} else {
+			System.out.println("Update succesfully");
 		}
+	}
 		      
-		//Search Course Schedule
-		public static void searchSchedule(ArrayList<CourseSchedule> scheduleList) {
-			int Price = Helper.readInt("Enter price of the course > ");
-			Helper.line(90, "=");
-			System.out.println("Course Schedule LIST");
-			Helper.line(90, "=");
-			System.out.print(String.format("%-20s %-20s %-20s %-15s %-15s\n", "COURSE START DATE", "COURSE END DATE", "COURSE PRICE", "COURSE ID", "COURSE LOCATION"));
-			boolean search = false;
-			
-			for (int i=0; i<scheduleList.size(); i++) {
-				if (scheduleList.get(i).getPrice() == Price) {
-					String output = String.format("%-20s %-20s %-20s %-15s %-15s\n", scheduleList.get(i).getStart(), scheduleList.get(i).getEnd(), 
-							scheduleList.get(i).getPrice(), scheduleList.get(i).getId(),scheduleList.get(i).getLocation());
-					System.out.print(output);
-					search = true;
-				} 
-			}
-			if (search == false) {
-				System.out.println("");
-				System.out.println("There is no course with this price '" + Price + "'");
-			}
-		}
+	//Search Course Schedule
+	public static void searchSchedule(ArrayList<CourseSchedule> scheduleList) {
+		int Price = Helper.readInt("Enter price of the course > ");
+		Helper.line(90, "=");
+		System.out.println("Course Schedule LIST");
+		Helper.line(90, "=");
 		
-	
-	
-	
+		System.out.print(String.format("%-20s %-20s %-20s %-15s %-15s\n", "COURSE START DATE", "COURSE END DATE", "COURSE PRICE", 
+				"COURSE ID", "COURSE LOCATION"));
+		boolean search = false;
+			
+		for (int i=0; i<scheduleList.size(); i++) {
+			if (scheduleList.get(i).getPrice() == Price) {
+				String output = String.format("%-20s %-20s %-20s %-15s %-15s\n", scheduleList.get(i).getStart(), scheduleList.get(i).getEnd(), 
+						scheduleList.get(i).getPrice(), scheduleList.get(i).getId(),scheduleList.get(i).getLocation());
+				System.out.print(output);
+				search = true;
+			} 
+		}
+		if (search == false) {
+			System.out.println("");
+			System.out.println("There is no course with this price '" + Price + "'");
+		}
+	}
+		
+
 //========================================================= Option 5 Course Registration ==========================================================
 	//Delete Registration
 	public static String deleteRegistration(ArrayList<register> registrationList, ArrayList<CourseSchedule>scheduleList) {
@@ -761,7 +760,3 @@ public class C206_CaseStudy {
 	}
 		
 }
-
-
-		
-
