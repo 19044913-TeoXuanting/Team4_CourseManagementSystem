@@ -877,7 +877,7 @@ public class C206_CaseStudy {
 	}
 		
 	//Update Status of Registration
-	private static void UpdateStatus(ArrayList<register> registrationList) {
+	public static void UpdateStatus(ArrayList<register> registrationList) {
 		C206_CaseStudy.viewRegistration(registrationList, null,null);
 		int option = Helper.readInt("Enter registration id to update: ");
 
